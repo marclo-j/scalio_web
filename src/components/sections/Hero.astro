@@ -1,0 +1,305 @@
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <div class="container hero-content">
+    <div class="hero-tag">
+      <span class="tag-dot"></span>
+      Agencia digital · Lima, Perú
+    </div>
+
+    <h1 class="hero-headline" id="hero-headline">
+      <span class="line" id="line1">Tu negocio crece</span>
+      <span class="line italic" id="line2">con nosotros.</span>
+    </h1>
+
+    <div class="hero-sub" id="hero-sub">
+      <p class="hero-sub-main">
+        Tu presencia online deja de ser gasto y <strong>se convierte en tu mejor empleado.</strong>
+      </p>
+      <p class="hero-sub-secondary">
+        Creamos páginas web que convierten visitantes en clientes y
+        automatizamos tus tareas repetitivas para que enfoques en hacer crecer
+        tu negocio.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#contacto" class="btn-primary" data-cursor-expand>
+          Hablemos de tu crecimiento
+        </a>
+        <a href="#servicios" class="btn-ghost" data-cursor-expand>
+          Ver qué hacemos ↓
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator" id="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 8rem 0 4rem;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: blobFloat 8s ease-in-out infinite alternate;
+  }
+
+  .blob-1 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(
+      circle,
+      rgba(250, 204, 21, 0.18) 0%,
+      transparent 70%
+    );
+    top: -100px;
+    left: -100px;
+    animation-delay: 0s;
+  }
+
+  .blob-2 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(
+      circle,
+      rgba(250, 204, 21, 0.08) 0%,
+      transparent 70%
+    );
+    bottom: 0;
+    right: 0;
+    animation-delay: -3s;
+  }
+
+  .blob-3 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(
+      circle,
+      rgba(250, 204, 21, 0.12) 0%,
+      transparent 70%
+    );
+    top: 40%;
+    left: 50%;
+    animation-delay: -6s;
+  }
+
+  @keyframes blobFloat {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    100% {
+      transform: translate(40px, 30px) scale(1.1);
+    }
+  }
+
+  .grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-bottom: 2rem;
+  }
+
+  .tag-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--yellow);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.3);
+    }
+  }
+
+  .hero-headline {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+    overflow: hidden;
+  }
+
+  .hero-headline .line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.05em;
+  }
+
+  .hero-headline .italic {
+    font-style: italic;
+    color: var(--yellow);
+    padding-left: 0.5rem;
+  }
+
+  .hero-sub {
+    max-width: 600px;
+  }
+
+  .hero-sub-main {
+    font-size: 1.25rem;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .hero-sub-main strong {
+    color: var(--yellow);
+    font-weight: 600;
+  }
+
+  .hero-sub-secondary {
+    font-size: 1rem;
+    color: var(--white-muted);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--yellow), transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollLine {
+    0% {
+      transform: scaleY(0);
+      transform-origin: top;
+    }
+    50% {
+      transform: scaleY(1);
+      transform-origin: top;
+    }
+    51% {
+      transform: scaleY(1);
+      transform-origin: bottom;
+    }
+    100% {
+      transform: scaleY(0);
+      transform-origin: bottom;
+    }
+  }
+
+  .scroll-indicator span {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+  }
+
+  .hero-tag,
+  #hero-sub,
+  #scroll-indicator {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .hero-headline .line {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (typeof gsap === "undefined") return;
+
+    const tl = gsap.timeline({ delay: 0.3 });
+
+    tl.fromTo(
+      ".hero-tag",
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.7, ease: "expo.out" },
+    )
+      .fromTo(
+        "#line1",
+        { opacity: 0, y: "100%" },
+        { y: "0%", opacity: 1, duration: 1, ease: "expo.out" },
+        "-=0.3",
+      )
+      .fromTo(
+        "#line2",
+        { opacity: 0, y: "100%" },
+        { y: "0%", opacity: 1, duration: 1, ease: "expo.out" },
+        "-=0.75",
+      )
+      .fromTo(
+        "#hero-sub",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "expo.out" },
+        "-=0.5",
+      )
+      .fromTo(
+        "#scroll-indicator",
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5 },
+        "-=0.2",
+      );
+  });
+</script>

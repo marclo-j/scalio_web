@@ -1,0 +1,125 @@
+<section class="benefits-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="section-label">¿Por qué elegirnos?</p>
+        <p class="section-subtitle">Diferenciadores que marcan la diferencia</p>
+      </div>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-card" data-cursor-expand>
+        <span class="benefit-icon">🎯</span>
+        <h3>Enfoque en resultados</h3>
+        <p>
+          Cada elemento de tu web tiene un propósito: convertir. Diseñamos
+          cada página pensando en convertir visitantes en clientes reales.
+        </p>
+      </div>
+
+      <div class="benefit-card" data-cursor-expand>
+        <span class="benefit-icon">⚡</span>
+        <h3>Tecnología moderna</h3>
+        <p>
+          Tu web carga tan rápido que los clientes no se aburren esperando.
+          Eso significa más conversiones, mejor posicionamiento y menos
+          abandono.
+        </p>
+      </div>
+
+      <div class="benefit-card" data-cursor-expand>
+        <span class="benefit-icon">📈</span>
+        <h3>Velocidad de entrega</h3>
+        <p>
+          Mientras tu competidor aún piensa en tener web, tú ya estás
+          vendiendo. Landing page en días, web completa en semanas.
+        </p>
+      </div>
+
+      <div class="benefit-card" data-cursor-expand>
+        <span class="benefit-icon">💰</span>
+        <h3>Accesible y transparente</h3>
+        <p>
+          No invertimos en lo que no genera retorno. Cada peso que gastas en
+          tu web debe traerte clientes. Y te mostramos exactamente dónde.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .benefits-section {
+    padding: 6rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+  }
+
+  .section-subtitle {
+    font-size: 0.85rem;
+    color: var(--white-muted);
+    margin-top: 0.5rem;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    margin-top: 3rem;
+  }
+
+  .benefit-card {
+    padding: 2.5rem;
+    border: 1px solid var(--border);
+    background: var(--dark-2);
+    transition: background 0.3s;
+  }
+
+  .benefit-card:hover {
+    background: rgba(250, 204, 21, 0.04);
+  }
+
+  .benefit-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .benefit-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+    color: var(--white);
+  }
+
+  .benefit-card p {
+    font-size: 0.875rem;
+    color: var(--white-muted);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .benefits-grid {
+      grid-template-columns: 1fr;
+    }
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+</style>
+
+

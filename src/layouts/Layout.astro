@@ -11,8 +11,8 @@ export interface Props {
 }
 
 const {
-  title = "Scalio | Agencia de Desarrollo Web y Automatización en Lima, Perú",
-  description = "Scalio crea páginas web estratégicas, automatiza procesos y desarrolla ERP/SaaS para MYPES y emprendedores en Perú. Webs que generan ventas 24/7.",
+  title = "Scalio | Páginas web y automatización para negocios en Perú",
+  description = "Agencia digital en Lima, Perú. Creamos páginas web que convierten visitantes en clientes y automatizamos tareas repetitivas para tu negocio.",
   image = "/og-image.jpg",
   canonical,
   noindex = false,
@@ -45,7 +45,7 @@ const defaultSchema = {
         "https://www.instagram.com/scalio.pe",
       ],
       description:
-        "Agencia digital especializada en desarrollo web, automatización de procesos y sistemas ERP/SaaS para MYPES en Perú.",
+        "Agencia digital especializada en desarrollo web y automatización de procesos para negocios en Perú.",
     },
     {
       "@type": "LocalBusiness",
@@ -53,7 +53,6 @@ const defaultSchema = {
       name: "Scalio - Agencia Digital",
       image: `${siteUrl}/og-image.jpg`,
       url: siteUrl,
-      telephone: "+51-XXX-XXXX",
       email: "hola@scalio.pe",
       address: {
         "@type": "PostalAddress",
@@ -383,6 +382,44 @@ const finalSchema = schema || defaultSchema;
   .split-char {
     display: inline-block;
     overflow: hidden;
+  }
+
+  /* ─── Shared Button Styles ──────────────────────── */
+  .btn-primary {
+    padding: 0.9rem 2.25rem;
+    background: var(--yellow);
+    color: var(--dark);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+  }
+
+  .btn-primary:hover {
+    background: var(--white);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    padding: 0.9rem 2.25rem;
+    border: 1px solid var(--border);
+    color: var(--white-muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--yellow);
+    color: var(--yellow);
   }
 
   /* ═══════════════════════════════════════════════ */

@@ -1,81 +1,37 @@
----
-interface Props {
-  currentPage?: string;
-}
-const { currentPage = "/" } = Astro.props;
----
-
 <nav id="nav" class="glass">
   <div class="nav-inner">
     <a href="/" class="nav-logo" data-cursor-expand>
-      <img
-        src="/scalio-logo.webp"
-        alt="Scalio"
-        class="nav-logo-scalio"
-        height="30"
-        width="30"
-      />
+      <img src="/scalio-logo.webp" alt="Scalio" class="nav-logo-scalio" height="30" width="30" />
     </a>
-
-    <div class="nav-links">
-      <a
-        href="/"
-        class:list={["nav-link", { active: currentPage === "/" }]}
-        data-cursor-expand
-      >
-        Inicio
-      </a>
-      <a
-        href="/scalio"
-        class:list={["nav-link", { active: currentPage === "/scalio" }]}
-        data-cursor-expand
-      >
-        Scalio
-      </a>
-      <a
-        href="/contacto"
-        class:list={["nav-link", { active: currentPage === "/contacto" }]}
-        data-cursor-expand
-      >
-        Contacto
-      </a>
-    </div>
-
-    <a href="/contacto" class="nav-cta" data-cursor-expand> Empezar → </a>
-
-    <!-- Mobile hamburger -->
-    <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menú">
-      <span></span><span></span>
-    </button>
+    <a href="#contacto" class="nav-cta" data-cursor-expand>
+      Cotizar <span class="nav-cta-arrow">→</span>
+    </a>
   </div>
 </nav>
-
-<!-- Mobile menu -->
-<div class="mobile-menu glass" id="mobile-menu">
-  <div class="mobile-menu-inner">
-    <a href="/" class="mobile-link" data-cursor-expand>Inicio</a>
-    <a href="/scalio" class="mobile-link" data-cursor-expand>Scalio</a>
-    <a href="/contacto" class="mobile-link" data-cursor-expand>Contacto</a>
-  </div>
-</div>
 
 <style>
   nav {
     position: fixed;
-    top: 1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0;
+    left: 0;
+    width: 100%;
     z-index: 800;
-    border-radius: 100px;
-    width: min(calc(100% - 3rem), 900px);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
     opacity: 0;
+    transform: translateY(0);
   }
 
   .nav-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.85rem 1.5rem;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
     gap: 1rem;
   }
 
@@ -86,49 +42,13 @@ const { currentPage = "/" } = Astro.props;
     letter-spacing: -0.02em;
     color: var(--white);
     white-space: nowrap;
-  }
-
-  .nav-logo em {
-    font-style: italic;
-    color: var(--yellow);
-  }
-
-  .nav-links {
     display: flex;
-    gap: 2rem;
     align-items: center;
+    gap: 0.5rem;
   }
 
-  .nav-link {
-    font-size: 0.875rem;
-    letter-spacing: 0.02em;
-    color: var(--white-muted);
-    position: relative;
-    transition: color 0.3s ease;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-  }
-
-  .nav-link::after {
-    content: "";
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--yellow);
-    transition: width 0.3s ease;
-  }
-
-  .nav-link:hover,
-  .nav-link.active {
-    color: var(--white);
-  }
-
-  .nav-link:hover::after,
-  .nav-link.active::after {
-    width: 100%;
+  .nav-logo img {
+    display: block;
   }
 
   .nav-cta {
@@ -142,6 +62,9 @@ const { currentPage = "/" } = Astro.props;
     font-weight: 600;
     transition: all 0.3s ease;
     white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
   }
 
   .nav-cta:hover {
@@ -149,137 +72,42 @@ const { currentPage = "/" } = Astro.props;
     transform: scale(1.05);
   }
 
-  .nav-hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
+  .nav-cta-arrow {
+    transition: transform 0.3s ease;
   }
 
-  .nav-hamburger span {
-    display: block;
-    width: 24px;
-    height: 1.5px;
-    background: var(--white);
-    transition: all 0.3s ease;
-    transform-origin: center;
-  }
-
-  .nav-hamburger.open span:first-child {
-    transform: translateY(3.5px) rotate(45deg);
-  }
-
-  .nav-hamburger.open span:last-child {
-    transform: translateY(-3.5px) rotate(-45deg);
-  }
-
-  /* Mobile menu */
-  .mobile-menu {
-    position: fixed;
-    top: 5rem;
-    left: 50%;
-    transform: translateX(-50%) scaleY(0);
-    transform-origin: top;
-    z-index: 799;
-    border-radius: 20px;
-    width: min(calc(100% - 3rem), 900px);
-    overflow: hidden;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    display: none;
-  }
-
-  .mobile-menu.open {
-    transform: translateX(-50%) scaleY(1);
-  }
-
-  .mobile-menu-inner {
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem 2rem;
-    gap: 1.5rem;
-  }
-
-  .mobile-link {
-    font-size: 1.5rem;
-    font-family: var(--font-display);
-    font-style: italic;
-    color: var(--white);
-    transition: color 0.3s;
-  }
-
-  .mobile-link:hover {
-    color: var(--yellow);
+  .nav-cta:hover .nav-cta-arrow {
+    transform: translateX(3px);
   }
 
   @media (max-width: 768px) {
-    .nav-links,
-    .nav-cta {
-      display: none;
-    }
-    .nav-hamburger {
-      display: flex;
-    }
-    .mobile-menu {
-      display: block;
+    .nav-inner {
+      padding: 0 1.25rem;
     }
   }
 </style>
 
 <script>
-  // Nav enter animation
   document.addEventListener("DOMContentLoaded", () => {
     if (typeof gsap !== "undefined") {
-      gsap.to("#nav", {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        delay: 0.5,
-        ease: "expo.out",
-      });
+      gsap.to("#nav", { opacity: 1, duration: 1, delay: 0.5, ease: "expo.out" });
     }
 
-    // Hamburger toggle
-    const hamburger = document.getElementById("nav-hamburger");
-    const mobileMenu = document.getElementById("mobile-menu");
-
-    hamburger?.addEventListener("click", () => {
-      hamburger.classList.toggle("open");
-      mobileMenu?.classList.toggle("open");
-    });
-
-    // Scroll hide/show nav
     let lastY = 0;
     const nav = document.getElementById("nav");
-
-    window.addEventListener(
-      "scroll",
-      () => {
-        const scrollY = window.scrollY;
-        if (scrollY < 100) {
-          nav?.style.setProperty("opacity", "1");
-          return;
-        }
-        if (scrollY > lastY + 10) {
-          gsap?.to("#nav", {
-            y: -100,
-            opacity: 0,
-            duration: 0.4,
-            ease: "power2.inOut",
-          });
-        } else if (scrollY < lastY - 10) {
-          gsap?.to("#nav", {
-            y: 0,
-            opacity: 1,
-            duration: 0.4,
-            ease: "power2.out",
-          });
-        }
-        lastY = scrollY;
-      },
-      { passive: true },
-    );
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;
+      if (scrollY < 100) {
+        nav?.style.setProperty("opacity", "1");
+        nav?.style.setProperty("transform", "translateY(0)");
+        return;
+      }
+      if (scrollY > lastY + 10) {
+        gsap?.to("#nav", { y: -64, opacity: 0, duration: 0.4, ease: "power2.inOut" });
+      } else if (scrollY < lastY - 10) {
+        gsap?.to("#nav", { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" });
+      }
+      lastY = scrollY;
+    }, { passive: true });
   });
 </script>

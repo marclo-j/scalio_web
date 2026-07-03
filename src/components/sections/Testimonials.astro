@@ -1,0 +1,151 @@
+<section class="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Clientes que confiaron en Scalio</p>
+        <p class="section-subtitle">Resultados reales de negocios peruanos</p>
+      </div>
+    </div>
+
+    <div class="testimonials-grid">
+      <blockquote class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>
+          "Teníamos una tienda física con presencia cero en internet. Scalio
+          nos hizo una web simple, directa. El primer mes: 3 clientes por
+          Instagram que vieron nuestra página. El segundo mes: 12. Hoy
+          vendemos online y offline. Lo mejor: la web se paga sola cada mes
+          con las ventas que genera."
+        </p>
+        <footer>
+          <strong>Carlos García</strong>
+          <span>Supermarket · Lima</span>
+        </footer>
+      </blockquote>
+
+      <blockquote class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>
+          "Antes pasaba 2 horas cada mañana respondiendo mensajes de clientes
+          potenciales, anotando datos en un Excel, enviando presupuestos.
+          Automatización de Scalio: ahora eso sucede solo. Me ahorra mucho
+          tiempo cada día. Y sí, cerramos más clientes porque les respondemos
+          al instante."
+        </p>
+        <footer>
+          <strong>María López</strong>
+          <span>Fundadora · Agencia de Marketing · Lima</span>
+        </footer>
+      </blockquote>
+
+      <blockquote class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>
+          "Mi tienda online no vendía. Scalio la rediseñó completamente. Un
+          mes después: vendía 3 veces más. No es 'magia', es que antes la
+          página confundía al cliente, ahora no. Ahora vendo 15-20 productos
+          mensuales cuando antes era casi cero. Cambió mi negocio
+          completamente."
+        </p>
+        <footer>
+          <strong>Santiago Gutiérrez</strong>
+          <span>Emprendedor · E-Commerce · Arequipa</span>
+        </footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    padding: 6rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+  }
+
+  .section-subtitle {
+    font-size: 0.85rem;
+    color: var(--white-muted);
+    margin-top: 0.5rem;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 3rem;
+  }
+
+  .testi {
+    padding: 2.5rem;
+    border: 1px solid var(--border);
+    background: var(--dark-2);
+    transition: background 0.3s;
+  }
+
+  .testi:hover {
+    background: rgba(250, 204, 21, 0.04);
+  }
+
+  .testi-stars {
+    font-size: 1rem;
+    color: var(--yellow);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .testi p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--white-muted);
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+
+  .testi footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .testi footer strong {
+    font-size: 0.9rem;
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .testi footer span {
+    font-size: 0.75rem;
+    color: var(--white-muted);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 900px) {
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+</style>
+
+

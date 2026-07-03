@@ -1,45 +1,26 @@
----
-
----
-
 <footer>
   <div class="container">
     <div class="footer-top">
       <div class="footer-cta">
         <p class="footer-label">¿Listo para crecer?</p>
-        <h2 class="footer-headline reveal">
-          Construye tu<br /><em>futuro digital</em><br />con nosotros.
-        </h2>
-        <a href="/contacto" class="footer-btn"> Iniciar proyecto → </a>
+        <h2 class="footer-headline">Construye tu<br /><em>futuro digital</em><br />con nosotros.</h2>
+        <a href="#contacto" class="footer-btn"> Iniciar proyecto → </a>
       </div>
-
       <div class="footer-info">
         <div class="footer-col">
-          <p class="footer-col-title">Páginas</p>
-          <a href="/">Inicio</a>
-          <a href="/scalio">Scalio</a>
-          <a href="/contacto">Contacto</a>
-        </div>
-        <div class="footer-col">
           <p class="footer-col-title">Contacto</p>
-          <a href="mailto:scalio.contact@gmail.com">scalio.contact@gmail.com</a>
-          <a href="https://instagram.com/scalio.studio" target="_blank"
-            >@scalio.studio</a
-          >
+          <a href="mailto:hola@scalio.pe">hola@scalio.pe</a>
+          <a href="https://instagram.com/scalio.studio" target="_blank">@scalio.studio</a>
           <a href="https://wa.me/51994660039">WhatsApp</a>
         </div>
         <div class="footer-col">
           <p class="footer-col-title">Ubicación</p>
-          <p style="color: var(--white-muted); font-size: 0.9rem;">
-            Lima, Perú
-          </p>
+          <p class="footer-location">Lima, Perú</p>
         </div>
       </div>
     </div>
-
     <div class="footer-bottom">
       <p>© 2025 Scalio. Todos los derechos reservados.</p>
-      <!-- <p>Páginas web estratégicas · Automatización</p> -->
     </div>
   </div>
 </footer>
@@ -48,7 +29,6 @@
   footer {
     border-top: 1px solid var(--border);
     padding: 6rem 0 3rem;
-    margin-top: 8rem;
     background: var(--dark-2);
   }
 
@@ -100,7 +80,7 @@
 
   .footer-info {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     padding-top: 1rem;
   }
@@ -129,6 +109,11 @@
     color: var(--yellow);
   }
 
+  .footer-location {
+    font-size: 0.9rem;
+    color: var(--white-muted);
+  }
+
   .footer-bottom {
     display: flex;
     justify-content: space-between;
@@ -148,14 +133,11 @@
       gap: 3rem;
     }
     .footer-info {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
   @media (max-width: 600px) {
-    .footer-info {
-      grid-template-columns: repeat(2, 1fr);
-    }
     .footer-bottom {
       flex-direction: column;
       gap: 0.5rem;
