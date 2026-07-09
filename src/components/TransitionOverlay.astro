@@ -66,6 +66,27 @@ import gsap from "gsap";
         });
       });
 
+    // Custom text cursor on project cards
+    document
+      .querySelectorAll("[data-cursor-text]")
+      .forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          const text = el.getAttribute("data-cursor-text");
+          cursor.textContent = text;
+          cursor.classList.add("cursor--text");
+          cursor.style.width = "auto";
+          cursor.style.height = "auto";
+          ring.style.opacity = "0";
+        });
+        el.addEventListener("mouseleave", () => {
+          cursor.textContent = "";
+          cursor.classList.remove("cursor--text");
+          cursor.style.width = "10px";
+          cursor.style.height = "10px";
+          ring.style.opacity = "1";
+        });
+      });
+
     // Page transitions
     const overlay = document.getElementById("page-overlay");
     if (overlay && typeof gsap !== "undefined") {
