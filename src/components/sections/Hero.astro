@@ -20,7 +20,13 @@ const mOut = (((2 * morph + hold) / cycle) * 100).toFixed(4);
     <GlitterWrap />
   </div>
 
-  <img class="hero-logo" src="/scalio-logo.webp" alt="Scalio" />
+  <div class="hero-top-left">
+    <img class="hero-logo" src="/scalio-logo.webp" alt="Scalio" />
+    <a class="hero-badge nav-btn" href="#servicios">Servicios</a>
+    <a class="hero-badge nav-btn" href="#trabajo">Nuestro trabajo</a>
+    <a class="hero-badge nav-btn" href="#resultados">¿Por qué nosotros?</a>
+    <a class="hero-badge nav-btn" href="#testimonios">Clientes</a>
+  </div>
   <div class="hero-top-right">
     <span class="hero-badge hero-ubication">Lima - Perú</span>
     <a class="hero-badge hero-charlemos"
@@ -77,10 +83,24 @@ const mOut = (((2 * morph + hold) / cycle) * 100).toFixed(4);
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 5.24vw), 0 100%);
   }
 
-  .hero-logo {
+  .hero-top-left {
     position: absolute;
     top: 32px;
     left: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 2;
+  }
+
+  .hero-top-left .hero-badge {
+    position: static;
+    background: #F9CC15;
+    color: #000;
+    border: none;
+  }
+
+  .hero-logo {
     height: 40px;
     width: auto;
   }
@@ -97,6 +117,10 @@ const mOut = (((2 * morph + hold) / cycle) * 100).toFixed(4);
     border: 1px solid var(--primary);
     line-height: 1.2;
     white-space: nowrap;
+  }
+
+  .nav-btn {
+    cursor: pointer;
   }
 
   .hero-charlemos {
@@ -117,6 +141,9 @@ const mOut = (((2 * morph + hold) / cycle) * 100).toFixed(4);
 
   .hero-top-right .hero-badge {
     position: static;
+    background: #F9CC15;
+    color: #000;
+    border: none;
   }
 
   .hero-carousel {
@@ -169,6 +196,9 @@ const mOut = (((2 * morph + hold) / cycle) * 100).toFixed(4);
     animation: morphAnim var(--cycle) var(--delay) ease-out infinite;
   }
 
+  @media (max-width: 768px) {
+    .nav-btn { display: none; }
+  }
 
 </style>
 

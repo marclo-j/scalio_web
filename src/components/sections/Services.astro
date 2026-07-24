@@ -1,10 +1,25 @@
 ---
-import HoverImageReveal from "../HoverImageReveal.tsx";
+import ServiceCoverflow from "../ServiceCoverflow.tsx";
 
 const servicesItems = [
-  { text: "Presencia Digital", image: "/images/web.avif", description: "Webs que convierten visitantes en clientes. Diseño estratégico, rápido y optimizado para vender." },
-  { text: "Atención IA", image: "/images/ia.avif", description: "Automatización inteligente 24/7. Respuestas instantáneas, captura de leads y seguimiento sin aumentar tu equipo." },
-  { text: "Gestión Integrada", image: "/images/procesos.avif", description: "Centraliza tus operaciones. Pedidos, inventario y atención al cliente en un solo sistema." },
+  {
+    text: "Presencia Digital",
+    image: "/images/web.avif",
+    description:
+      "Webs que convierten visitantes en clientes. Diseño estratégico, rápido y optimizado para vender.",
+  },
+  {
+    text: "Atención IA",
+    image: "/images/ia.avif",
+    description:
+      "Automatización inteligente 24/7. Respuestas instantáneas, captura de leads y seguimiento sin aumentar tu equipo.",
+  },
+  {
+    text: "Gestión Integrada",
+    image: "/images/procesos.avif",
+    description:
+      "Centraliza tus operaciones. Pedidos, inventario y atención al cliente en un solo sistema.",
+  },
 ];
 ---
 
@@ -12,23 +27,9 @@ const servicesItems = [
   <div class="services-inner">
     <div class="section-header">
       <h2 class="services-title">Servicios</h2>
-      <p class="services-desc">Todo lo que necesitas para crecer online, en un solo lugar.</p>
     </div>
 
-    <div class="services-reveal-container">
-      <HoverImageReveal
-        client:load
-        items={servicesItems}
-        backgroundColor="transparent"
-        textColor="#F9CC15"
-        dimColor="#51565A"
-        imageWidth={400}
-        imageHeight={500}
-        rounded={24}
-        offsetX={300}
-        offsetY={-40}
-      />
-    </div>
+    <ServiceCoverflow client:load items={servicesItems} />
   </div>
 </section>
 
@@ -50,29 +51,16 @@ const servicesItems = [
   }
 
   .services-title {
+    font-family: var(--font-sans);
     font-size: clamp(48.6px, 7.65vw, 97.2px);
-    font-weight: 900;
-    color: #F9CC15;
+    font-weight: 800;
+    color: #f9cc15;
     line-height: 1.1;
-    letter-spacing: -.04em;
+    letter-spacing: -0.04em;
     margin-bottom: 16px;
   }
 
-  .services-desc {
-    font-size: 20px;
-    font-weight: 600;
-    color: #F9CC15;
-    letter-spacing: .02em;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.5;
-  }
-
-  .services-reveal-container {
-    border-radius: 24px;
-  }
-
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     .services-section {
       padding: 75px 0;
     }

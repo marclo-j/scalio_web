@@ -2,10 +2,10 @@
 import Fondo from "../Fondo.tsx";
 
 const cards = [
-  { title: "Enfoque en resultados", icon: "/target-arrow.svg", video: "/videos/accesible.mp4", poster: "/videos/accesible-poster.jpg" },
-  { title: "Tecnología moderna", icon: "/bolt.svg", video: "/videos/tecnologia.mp4", poster: "/videos/tecnologia-poster.jpg" },
-  { title: "Velocidad de entrega", icon: "/rocket.svg", video: "/videos/velocidad.mp4", poster: "/videos/velocidad-poster.jpg" },
-  { title: "Accesible y transparente", icon: "/trending-up.svg", video: "/videos/accesible.mp4", poster: "/videos/accesible-poster.jpg" },
+  { title: "Enfoque en resultados", icon: "/target-arrow.svg", video: "/videos/accesible.mp4", poster: "/videos/accesible-poster.webp" },
+  { title: "Tecnología moderna", icon: "/bolt.svg", video: "/videos/tecnologia.mp4", poster: "/videos/tecnologia-poster.webp" },
+  { title: "Velocidad de entrega", icon: "/rocket.svg", video: "/videos/velocidad.mp4", poster: "/videos/velocidad-poster.webp" },
+  { title: "Accesible y transparente", icon: "/trending-up.svg", video: "/videos/accesible.mp4", poster: "/videos/accesible-poster.webp" },
 ];
 ---
 
@@ -107,8 +107,9 @@ const cards = [
   }
 
   .resultados-title {
+    font-family: var(--font-sans);
     font-size: clamp(48.6px, 7.65vw, 97.2px);
-    font-weight: 900;
+    font-weight: 800;
     color: #F9CC15;
     line-height: 1.1;
     letter-spacing: -.04em;
@@ -118,7 +119,7 @@ const cards = [
   .resultados-desc {
     font-size: 20px;
     font-weight: 600;
-    color: #F9CC15;
+    color: #FFFFFF;
     letter-spacing: .02em;
     max-width: 600px;
     margin: 0 auto;
