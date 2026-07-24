@@ -1,186 +1,80 @@
+---
+import HoverImageReveal from "../HoverImageReveal.tsx";
+
+const servicesItems = [
+  { text: "Presencia Digital", image: "/images/web.avif", description: "Webs que convierten visitantes en clientes. Diseño estratégico, rápido y optimizado para vender." },
+  { text: "Atención IA", image: "/images/ia.avif", description: "Automatización inteligente 24/7. Respuestas instantáneas, captura de leads y seguimiento sin aumentar tu equipo." },
+  { text: "Gestión Integrada", image: "/images/procesos.avif", description: "Centraliza tus operaciones. Pedidos, inventario y atención al cliente en un solo sistema." },
+];
+---
+
 <section class="services-section" id="servicios">
-  <div class="container">
+  <div class="services-inner">
     <div class="section-header">
-      <div>
-        <p class="section-label">Servicios</p>
-        <p class="section-subtitle">Lo que hacemos muy bien</p>
-      </div>
+      <h2 class="services-title">Servicios</h2>
+      <p class="services-desc">Todo lo que necesitas para crecer online, en un solo lugar.</p>
     </div>
 
-    <div class="services-grid">
-      <article class="service-card" data-cursor-expand>
-        <div class="service-card-header">
-          <span class="service-icon">🌐</span>
-          <h3>Presencia Digital Profesional</h3>
-        </div>
-        <p class="service-tagline">Un sitio que vende, no una tarjeta de presentación digital</p>
-        <ul class="service-features">
-          <li>Diseño responsive orientado a conversión</li>
-          <li>Optimización para aparecer en Google (SEO)</li>
-          <li>Botón de WhatsApp integrado</li>
-          <li>Formulario conectado directo a tu celular</li>
-        </ul>
-        <p class="service-ideal">Ideal para: restaurantes, clínicas, estudios legales, negocios de servicios</p>
-      </article>
-
-      <article class="service-card" data-cursor-expand>
-        <div class="service-card-header">
-          <span class="service-icon">🤖</span>
-          <h3>Atención al Cliente Inteligente</h3>
-        </div>
-        <p class="service-tagline">Tu negocio responde aunque tú no estés en el celular</p>
-        <ul class="service-features">
-          <li>Respuestas automáticas en WhatsApp</li>
-          <li>Agendamiento de citas sin que nadie lo escriba a mano</li>
-          <li>Cada consulta se guarda ordenada, no se pierde</li>
-        </ul>
-        <p class="service-ideal">Ideal para: negocios con muchas consultas diarias, clínicas, despachos</p>
-      </article>
-
-      <article class="service-card" data-cursor-expand>
-        <div class="service-card-header">
-          <span class="service-icon">⚙️</span>
-          <h3>Gestión Integrada de Operaciones</h3>
-        </div>
-        <p class="service-tagline">Toda tu operación en un solo lugar, sin hojas de cálculo sueltas</p>
-        <ul class="service-features">
-          <li>Panel con tus números en tiempo real</li>
-          <li>Reportes automáticos, sin armarlos a mano cada semana</li>
-          <li>Tus herramientas actuales conectadas entre sí</li>
-        </ul>
-        <p class="service-ideal">Ideal para: negocios con varias herramientas, inventario, varias sedes</p>
-      </article>
+    <div class="services-reveal-container">
+      <HoverImageReveal
+        client:load
+        items={servicesItems}
+        backgroundColor="transparent"
+        textColor="#F9CC15"
+        dimColor="#51565A"
+        imageWidth={400}
+        imageHeight={500}
+        rounded={24}
+        offsetX={300}
+        offsetY={-40}
+      />
     </div>
   </div>
 </section>
 
 <style>
   .services-section {
-    padding: 6rem 0;
-    border-top: 1px solid var(--border);
+    padding: 75px 0;
+    position: relative;
+  }
+
+  .services-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
   }
 
   .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 3rem;
+    text-align: center;
+    margin-bottom: 48px;
   }
 
-  .section-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--white-muted);
+  .services-title {
+    font-size: clamp(48.6px, 7.65vw, 97.2px);
+    font-weight: 900;
+    color: #F9CC15;
+    line-height: 1.1;
+    letter-spacing: -.04em;
+    margin-bottom: 16px;
   }
 
-  .section-subtitle {
-    font-size: 0.85rem;
-    color: var(--white-muted);
-    margin-top: 0.5rem;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 3rem;
-  }
-
-  .service-card {
-    border: 1px solid var(--border);
-    background: var(--dark-2);
-    padding: 2.5rem 2rem;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .service-card:hover {
-    border-color: rgba(250, 204, 21, 0.3);
-    transform: translateY(-4px);
-    background: rgba(250, 204, 21, 0.03);
-  }
-
-  .service-card-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .service-icon {
-    font-size: 1.75rem;
-    flex-shrink: 0;
-  }
-
-  .service-card h3 {
-    font-size: 1.15rem;
-    color: var(--white);
-  }
-
-  .service-tagline {
-    font-size: 0.9rem;
-    color: var(--yellow);
-    line-height: 1.5;
-    margin-bottom: 1.25rem;
-    font-style: italic;
-    font-weight: 500;
-  }
-
-  .service-features {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 auto 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-  }
-
-  .service-features li {
-    font-size: 0.875rem;
-    color: var(--white-muted);
-    padding-left: 1.5rem;
-    position: relative;
+  .services-desc {
+    font-size: 20px;
+    font-weight: 600;
+    color: #F9CC15;
+    letter-spacing: .02em;
+    max-width: 600px;
+    margin: 0 auto;
     line-height: 1.5;
   }
 
-  .service-features li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: var(--yellow);
-    font-weight: bold;
+  .services-reveal-container {
+    border-radius: 24px;
   }
 
-  .service-ideal {
-    font-size: 0.8rem;
-    color: var(--white-muted);
-    padding: 1rem 1.25rem;
-    background: rgba(250, 204, 21, 0.05);
-    border-left: 3px solid var(--yellow);
-    border-radius: 4px;
-    margin-top: 1.5rem;
-    line-height: 1.5;
-  }
-
-  @media (max-width: 1024px) {
-    .services-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .section-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-    .service-card {
-      padding: 2rem 1.5rem;
+  @media (max-width: 600px) {
+    .services-section {
+      padding: 75px 0;
     }
   }
 </style>
-
-

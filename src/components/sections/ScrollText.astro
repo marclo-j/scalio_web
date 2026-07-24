@@ -1,0 +1,76 @@
+---
+import { scrollWords } from "../../data/scrollWords";
+
+const { compact = false } = Astro.props;
+---
+
+<div class="scroll-text-section" class:list={{ compact }}>
+  <div class="scroll-text-body">
+    <div class="scroll-text-track">
+      {scrollWords.map((word) => (
+        <span class="scroll-word">
+          {word}
+          <img src="/asterisk.svg" alt="" class="asterisk-icon" />
+        </span>
+      ))}
+      {scrollWords.map((word) => (
+        <span class="scroll-word" aria-hidden="true">
+          {word}
+          <img src="/asterisk.svg" alt="" class="asterisk-icon" aria-hidden="true" />
+        </span>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .scroll-text-section {
+    padding: 60px 0;
+    margin: -24px 0;
+  }
+
+  .scroll-text-section.compact {
+    padding: 70px 0;
+    margin: 0;
+  }
+
+  .scroll-text-body {
+    transform: rotate(-3deg);
+    transform-origin: center center;
+    background: #F9CC15;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .scroll-text-track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    animation: scrollText 25s linear infinite;
+    padding: 15px 0;
+  }
+
+  .scroll-word {
+    display: inline-flex;
+    align-items: center;
+    gap: 26px;
+    padding: 0 14px;
+    font-size: clamp(19px, 3.2vw, 38px);
+    font-weight: 700;
+    color: #000;
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  .asterisk-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    display: block;
+  }
+
+  @keyframes scrollText {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+</style>

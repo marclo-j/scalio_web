@@ -1,147 +1,121 @@
-<footer>
+<footer id="contacto-footer">
   <div class="container">
-    <div class="footer-top">
-      <div class="footer-cta">
-        <p class="footer-label">¿Listo para crecer?</p>
-        <h2 class="footer-headline">Construye tu<br /><em>futuro digital</em><br />con nosotros.</h2>
-        <a href="#contacto" class="footer-btn"> Iniciar proyecto → </a>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="/scalio-logo.webp" alt="Scalio" class="footer-logo" />
+        <h3>Scalio</h3>
+        <p>Transformamos negocios peruanos con tecnologia web y automatizacion inteligente. Resultados reales, sin promesas vacias.</p>
       </div>
-      <div class="footer-info">
-        <div class="footer-col">
-          <p class="footer-col-title">Contacto</p>
-          <a href="mailto:scalio.contact@gmail.com">scalio.contact@gmail.com</a>
-          <a href="https://instagram.com/scalio.studio" target="_blank">@scalio.studio</a>
-          <a href="https://wa.me/51915262911" target="_blank">WhatsApp</a>
-        </div>
-        <div class="footer-col">
-          <p class="footer-col-title">Ubicación</p>
-          <p class="footer-location">Lima, Perú</p>
-        </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <a href="mailto:scalio.contact@gmail.com">scalio.contact@gmail.com</a>
+        <a href="https://instagram.com/scalio.studio" target="_blank">@scalio.studio</a>
+        <a href="https://wa.me/51915262911" target="_blank">WhatsApp</a>
+      </div>
+      <div class="footer-col">
+        <h4>Ubicacion</h4>
+        <a href="#">Lima, Peru</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 Scalio. Todos los derechos reservados.</p>
+      <span>2025 Scalio. Todos los derechos reservados.</span>
     </div>
   </div>
 </footer>
 
 <style>
   footer {
-    border-top: 1px solid var(--border);
-    padding: 6rem 0 3rem;
-    background: var(--dark-2);
+    position: relative;
+    z-index: 2;
+    padding: 160px 0 40px;
   }
 
-  .footer-top {
+  footer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    color: rgba(255,255,255,.7);
+  }
+
+  .footer-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: start;
-    margin-bottom: 6rem;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 48px;
   }
 
-  .footer-label {
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--yellow);
-    margin-bottom: 1.5rem;
-  }
-
-  .footer-headline {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: 1.05;
-    margin-bottom: 2.5rem;
-    color: var(--white);
-  }
-
-  .footer-headline em {
-    font-style: italic;
-    color: var(--yellow);
-  }
-
-  .footer-btn {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    background: var(--yellow);
-    color: var(--dark);
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    border-radius: 100px;
-    transition: all 0.3s ease;
-  }
-
-  .footer-btn:hover {
-    background: var(--white);
-    transform: scale(1.03);
-  }
-
-  .footer-info {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    padding-top: 1rem;
-  }
-
-  .footer-col {
+  .footer-brand {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    align-items: flex-start;
   }
 
-  .footer-col-title {
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
+  .footer-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+
+  .footer-brand h3 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    margin: 12px 0 12px;
+  }
+
+  .footer-brand p {
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 360px;
+  }
+
+  .footer-col h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 16px;
     text-transform: uppercase;
-    color: var(--white-muted);
-    margin-bottom: 0.25rem;
+    letter-spacing: .05em;
   }
 
   .footer-col a {
-    font-size: 0.9rem;
-    color: var(--white-muted);
-    transition: color 0.3s;
+    display: block;
+    color: rgba(255,255,255,.6);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 4px 0;
+    transition: color .3s ease;
   }
 
   .footer-col a:hover {
-    color: var(--yellow);
-  }
-
-  .footer-location {
-    font-size: 0.9rem;
-    color: var(--white-muted);
+    color: #fff;
   }
 
   .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.1);
+    padding-top: 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 13px;
   }
 
-  .footer-bottom p {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.3);
-  }
-
-  @media (max-width: 900px) {
-    .footer-top {
+  @media (max-width: 768px) {
+    .footer-grid {
       grid-template-columns: 1fr;
-      gap: 3rem;
-    }
-    .footer-info {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 600px) {
-    .footer-bottom {
-      flex-direction: column;
-      gap: 0.5rem;
-      text-align: center;
+      gap: 32px;
     }
   }
 </style>

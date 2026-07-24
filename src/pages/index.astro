@@ -1,134 +1,181 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
-import TransitionOverlay from "../components/TransitionOverlay.astro";
+import ChatWidget from "../components/ChatWidget.astro";
 
 import Hero from "../components/sections/Hero.astro";
-import TrustBar from "../components/sections/TrustBar.astro";
 import Services from "../components/sections/Services.astro";
 import Diferenciadores from "../components/sections/Diferenciadores.astro";
-import Projects from "../components/sections/Projects.astro";
 import Testimonials from "../components/sections/Testimonials.astro";
-import FAQ from "../components/sections/FAQ.astro";
-import ContactForm from "../components/sections/ContactForm.astro";
-import FinalCTA from "../components/sections/FinalCTA.astro";
+import CTA from "../components/sections/CTA.astro";
+import { BackgroundGradientAnimation } from "../ui/background-gradient-animation";
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "¿Cuánto cuesta una página web en Perú?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "El costo varía según complejidad. Ofrecemos desarrollo web estratégico incluyendo diseño responsive, SEO básico y optimización para conversiones. Una landing page profesional puede costar desde S/500–S/800, mientras que un e-commerce completo puede ir desde S/2,500. Solicita tu cotización personalizada sin compromiso.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "¿Cuánto tiempo tardan en entregar una página web?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Una landing page o web corporativa básica toma entre 2 y 3 semanas. Proyectos más complejos como e-commerce o plataformas personalizadas pueden tomar de 4 a 8 semanas. Siempre entregamos con fecha exacta y mantenemos comunicación constante durante el proceso.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "¿Qué incluye el desarrollo web en Scalio?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Nuestro desarrollo web incluye: diseño UX/UI estratégico orientado a conversiones, desarrollo con tecnología moderna, SEO técnico básico, velocidad de carga optimizada, responsive para todos los dispositivos, integración con WhatsApp Business, formularios de contacto, Google Analytics configurado y 30 días de soporte post-lanzamiento.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "¿Cómo funciona la automatización de WhatsApp para negocios?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Implementamos respuestas automáticas inteligentes en WhatsApp Business que atienden a tus clientes 24/7: mensajes de bienvenida personalizados, respuestas a preguntas frecuentes, captura de datos de leads, envío automático de catálogos y precios, confirmaciones de citas, recordatorios y seguimiento post-venta. Todo sin necesidad de aumentar tu equipo de atención al cliente.",
-      },
-    },
-  ],
-};
+const faqSchema = null; // removed FAQ section
 ---
 
 <Layout
-  title="Scalio | Páginas web y automatización para negocios en Perú"
+  title="Scalio — Transformación Digital para tu Negocio"
   description="Agencia digital en Lima, Perú. Creamos páginas web que convierten visitantes en clientes y automatizamos tareas repetitivas para tu negocio."
   canonical="/"
-  schema={faqSchema}
 >
-  <TransitionOverlay />
-  <Nav />
+  <div class="scroll-progress" id="scrollProgress"></div>
 
-  <Hero />
-  <TrustBar />
-  <Services />
-  <Diferenciadores />
-  <Projects />
-  <Testimonials />
-  <FAQ />
-  <!-- <ContactForm /> -->
-  <FinalCTA />
+  <nav class="nav-dots" id="navDots" aria-label="Navegación de secciones">
+    <button class="nav-dot active" data-target="hero" aria-label="Inicio"></button>
+    <button class="nav-dot" data-target="servicios" aria-label="Servicios"></button>
+    <button class="nav-dot" data-target="testimonios" aria-label="Testimonios"></button>
+    <button class="nav-dot" data-target="resultados" aria-label="Resultados"></button>
+    <button class="nav-dot" data-target="cta" aria-label="CTA"></button>
+    <button class="nav-dot" data-target="contacto-footer" aria-label="Contacto"></button>
+  </nav>
 
-  <Footer />
+  <BackgroundGradientAnimation client:load>
+    <Hero />
+    <Services />
+    <Diferenciadores />
+    <Testimonials />
+    <CTA />
+    <Footer />
+  </BackgroundGradientAnimation>
+
+  <ChatWidget />
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      if (typeof gsap === "undefined") return;
-      gsap.registerPlugin(ScrollTrigger);
+      function initGSAP() {
+        if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return false;
+        try {
+          gsap.registerPlugin(ScrollTrigger);
 
-      const sections = [
-        { container: ".services-grid", items: ".service-card", y: 50, stagger: 0.12 },
-        { container: ".benefits-grid", items: ".benefit-card", y: 40, stagger: 0.1 },
-        { container: ".testimonials-grid", items: ".testi", y: 40, stagger: 0.12 },
-        { container: ".faq-list", items: ".faq-item", y: 30, stagger: 0.08 },
-      ];
+          // Scroll progress bar
+          gsap.to("#scrollProgress", {
+            scaleX: 1,
+            ease: "none",
+            scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 1 }
+          });
 
-      sections.forEach(({ container, items, x, y, stagger }) => {
-        const el = document.querySelector(container);
-        if (!el) return;
+          // Nav dots - active state on scroll
+          const sections = ["hero", "servicios", "testimonios", "resultados", "cta", "contacto-footer"];
+          const dots = document.querySelectorAll(".nav-dot");
 
-        const from = { opacity: 0 };
-        const to = {
-          opacity: 1,
-          duration: 0.7,
-          stagger,
-          ease: "expo.out",
-        };
-        if (x !== undefined) { from.x = x; to.x = 0; }
-        if (y !== undefined) { from.y = y; to.y = 0; }
+          sections.forEach((id, i) => {
+            ScrollTrigger.create({
+              trigger: "#" + id,
+              start: "top center",
+              end: "bottom center",
+              onEnter: () => setActive(i),
+              onEnterBack: () => setActive(i)
+            });
+          });
 
-        gsap.fromTo(items, from, {
-          scrollTrigger: { trigger: el, start: "top 85%", once: true },
-          ...to,
-        });
-      });
+          function setActive(i) {
+            dots.forEach(d => d.classList.remove("active"));
+            dots[i]?.classList.add("active");
+          }
 
-      gsap.fromTo(".faq-cta",
-        { opacity: 0, y: 30 },
-        {
-          scrollTrigger: { trigger: ".faq-cta", start: "top 85%", once: true },
-          opacity: 1, y: 0, duration: 0.6, ease: "expo.out",
-        },
-      );
+          dots.forEach((dot, i) => {
+            dot.addEventListener("click", () => {
+              const el = document.getElementById(sections[i]);
+              if (el) {
+                const top = el.getBoundingClientRect().top + window.scrollY;
+                window.scrollTo({ top, behavior: "smooth" });
+              }
+            });
+          });
 
-      gsap.fromTo(".contact-grid",
-        { opacity: 0, y: 40 },
-        {
-          scrollTrigger: { trigger: ".contact-grid", start: "top 85%", once: true },
-          opacity: 1, y: 0, duration: 0.8, ease: "expo.out",
-        },
-      );
+          // Hero reveal
+          gsap.utils.toArray(".hero .reveal").forEach((el, i) => {
+            gsap.fromTo(el,
+              { y: 50, opacity: 0 },
+              {
+                y: 0, opacity: 1, duration: 1, ease: "power3.out",
+                delay: 0.1 + i * 0.12,
+                scrollTrigger: {
+                  trigger: ".hero",
+                  start: "top 80%",
+                  toggleActions: "play none none none"
+                }
+              }
+            );
+          });
 
-      gsap.fromTo(".final-cta-content",
-        { opacity: 0, y: 60 },
-        {
-          scrollTrigger: { trigger: ".final-cta", start: "top 80%", once: true },
-          opacity: 1, y: 0, duration: 1, ease: "expo.out",
-        },
-      );
+          // Services section fade-in
+          gsap.fromTo(".services-reveal-container",
+            { y: 40, opacity: 0 },
+            {
+              y: 0, opacity: 1, duration: 1, ease: "power3.out",
+              scrollTrigger: {
+                trigger: ".services-section",
+                start: "top 85%",
+                toggleActions: "play none none none"
+              }
+            }
+          );
+
+          // Diff cards stagger
+          gsap.utils.toArray(".diff-card").forEach((el, i) => {
+            gsap.fromTo(el,
+              { y: 40, opacity: 0, scale: 0.92 },
+              {
+                y: 0, opacity: 1, scale: 1, duration: 0.7, ease: "power3.out",
+                delay: i * 0.1,
+                scrollTrigger: {
+                  trigger: ".diff-grid",
+                  start: "top 80%",
+                  toggleActions: "play none none none"
+                }
+              }
+            );
+          });
+
+          // Testimonials stagger
+          gsap.utils.toArray(".testimonial-card").forEach((el, i) => {
+            gsap.fromTo(el,
+              { y: 50, opacity: 0 },
+              {
+                y: 0, opacity: 1, duration: 0.8, ease: "power2.out",
+                delay: i * 0.15,
+                scrollTrigger: {
+                  trigger: el,
+                  start: "top 88%",
+                  toggleActions: "play none none none"
+                }
+              }
+            );
+          });
+
+          // CTA section fade-in
+          gsap.fromTo(".cta-inner",
+            { y: 40, opacity: 0 },
+            {
+              y: 0, opacity: 1, duration: 1, ease: "power3.out",
+              scrollTrigger: {
+                trigger: ".cta-section",
+                start: "top 85%",
+                toggleActions: "play none none none"
+              }
+            }
+          );
+
+          // ScrollTrigger refresh after WebGL/React components settle
+          setTimeout(() => ScrollTrigger.refresh(), 1500);
+          setTimeout(() => ScrollTrigger.refresh(), 3000);
+
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      if (!initGSAP()) {
+        let attempts = 0;
+        function retry() {
+          attempts++;
+          if (initGSAP()) return;
+          if (attempts < 30) requestAnimationFrame(retry);
+        }
+        requestAnimationFrame(retry);
+      }
     });
   </script>
 </Layout>

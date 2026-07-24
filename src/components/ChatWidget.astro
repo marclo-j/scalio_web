@@ -1,0 +1,438 @@
+<div class="chat-widget" id="chatWidget">
+  <button class="chat-toggle" id="chatToggleBtn" aria-label="Abrir chat">
+    <svg class="chat-toggle-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    <svg class="chat-toggle-close" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div class="chat-avatar">🤖</div>
+      <div class="chat-header-info">
+        <span class="chat-title">Asistente de Scalio</span>
+        <span class="chat-status">En línea</span>
+      </div>
+      <button class="chat-close" id="chatCloseBtn" aria-label="Cerrar chat">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">
+        <div class="msg-content">¡Hola! Soy el Asistente de Scalio. Cuéntame sobre tu negocio o lo que necesitas y te recomendaré el servicio ideal para ti.</div>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" placeholder="Describe tu negocio o necesidad..." autocomplete="off" />
+      <button id="chatSendBtn" aria-label="Enviar mensaje">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M21.864 3.549l-6.454 17.868a1.55 1.55 0 0 1 -1.41 .903a1.54 1.54 0 0 1 -1.394 -.874l-2.88 -5.759zm-1.414 -1.414l-12.139 12.138l-5.728 -2.864a1.55 1.55 0 0 1 -.903 -1.409c0 -.606 .353 -1.157 .981 -1.44z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .chat-widget {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  /* ---- Toggle Button ---- */
+  .chat-toggle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    background: #F9CC15;
+    color: #0A0A0A;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 24px rgba(249, 204, 21, 0.35);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .chat-toggle:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 32px rgba(249, 204, 21, 0.5);
+  }
+
+  .chat-toggle-close {
+    display: none;
+  }
+
+  .chat-widget.open .chat-toggle-icon {
+    display: none;
+  }
+
+  .chat-widget.open .chat-toggle-close {
+    display: block;
+  }
+
+  .chat-widget.open .chat-toggle {
+    background: #2C2C2E;
+    color: #fff;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+
+  /* ---- Panel ---- */
+  .chat-panel {
+    position: absolute;
+    bottom: 68px;
+    right: 0;
+    width: 380px;
+    height: 520px;
+    background: #1A1A1A;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: bottom right;
+  }
+
+  .chat-widget.open .chat-panel {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    pointer-events: auto;
+  }
+
+  /* ---- Header ---- */
+  .chat-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(0,0,0,0.2);
+  }
+
+  .chat-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(249, 204, 21, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .chat-header-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .chat-title {
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -.02em;
+    color: #F2F2F7;
+  }
+
+  .chat-status {
+    font-size: 11px;
+    color: #22C55E;
+    font-weight: 500;
+  }
+
+  .chat-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.06);
+    color: #8E8E93;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .chat-close:hover {
+    background: rgba(255,255,255,0.12);
+    color: #F2F2F7;
+  }
+
+  /* ---- Messages ---- */
+  .chat-messages {
+    flex: 1;
+    padding: 16px 14px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 280px;
+    max-height: 420px;
+    scroll-behavior: smooth;
+  }
+
+  .chat-msg.bot {
+    align-self: flex-start;
+    background: #2C2C2E;
+    color: #F2F2F7;
+    border-bottom-left-radius: 4px;
+  }
+
+  .chat-msg.user {
+    align-self: flex-end;
+    background: #F9CC15;
+    color: #0A0A0A;
+    font-weight: 500;
+    border-bottom-right-radius: 4px;
+  }
+
+  .chat-msg {
+    display: flex;
+    max-width: 80%;
+    width: fit-content;
+    padding: 10px 16px;
+    border-radius: 18px;
+    animation: msgSlideUp 0.25s ease-out;
+  }
+
+  .msg-content {
+    font-size: 15px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    width: auto;
+  }
+
+  .msg-content strong {
+    font-weight: 700;
+  }
+
+  /* ---- Input ---- */
+  .chat-input-area {
+    display: flex;
+    gap: 8px;
+    padding: 10px 14px 14px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    background: rgba(0,0,0,0.15);
+  }
+
+  .chat-input-area input {
+    flex: 1;
+    padding: 12px 18px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: #2C2C2E;
+    color: #F2F2F7;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .chat-input-area input::placeholder {
+    color: #636366;
+  }
+
+  .chat-input-area input:focus {
+    border-color: #F9CC15;
+  }
+
+  .chat-input-area button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: #F9CC15;
+    color: #0A0A0A;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .chat-input-area button:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+  }
+
+  .chat-input-area button:active {
+    transform: scale(0.95);
+  }
+
+  /* ---- Animations ---- */
+  @keyframes msgSlideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-6px); opacity: 1; }
+  }
+
+  /* Typing indicator (global styles since it's dynamic) */
+  :global(.typing-indicator) {
+    align-self: flex-start;
+    display: flex;
+    gap: 4px;
+    padding: 12px 16px;
+    background: #2C2C2E;
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+  }
+
+  :global(.typing-dot) {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #8E8E93;
+    animation: typingBounce 1.2s infinite ease-in-out;
+  }
+
+  :global(.typing-dot:nth-child(2)) {
+    animation-delay: 0.15s;
+  }
+
+  :global(.typing-dot:nth-child(3)) {
+    animation-delay: 0.3s;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 600px) {
+    .chat-panel {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      border: none;
+      transform-origin: bottom center;
+    }
+
+    .chat-widget.open .chat-panel {
+      border-radius: 0;
+    }
+
+    .chat-messages {
+      max-height: none;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    const widget = document.getElementById("chatWidget");
+    const toggleBtn = document.getElementById("chatToggleBtn");
+    const closeBtn = document.getElementById("chatCloseBtn");
+    const panel = document.getElementById("chatPanel");
+    const chatInput = document.getElementById("chatInput");
+    const chatSendBtn = document.getElementById("chatSendBtn");
+    const chatMessages = document.getElementById("chatMessages");
+
+    function toggleChat(open) {
+      widget.classList.toggle("open", open);
+    }
+
+    toggleBtn.addEventListener("click", () => toggleChat(!widget.classList.contains("open")));
+    closeBtn.addEventListener("click", () => toggleChat(false));
+
+    // ---- Chat logic ----
+    const responses = [
+      {
+        keywords: ["web", "sitio", "página", "landing", "ecommerce", "tienda"],
+        text: "Perfecto. Por lo que me comentas, nuestro servicio de **Presencia Digital Profesional** es ideal para ti. Creamos sitios web orientados a conversión, con diseño responsive, SEO técnico básico y velocidad optimizada. ¿Te gustaría agendar una llamada para conocer más detalles de tu proyecto?",
+      },
+      {
+        keywords: ["whatsapp", "mensaje", "cliente", "atender", "ventas", "lead", "chat"],
+        text: "Entiendo. Nuestro servicio de **Atención al Cliente Inteligente** puede ayudarte. Automatizamos WhatsApp Business con respuestas instantáneas, captura de leads y agendamiento de citas. Tus clientes reciben atención 24/7 sin que tengas que estar pegado al celular. ¿Quieres ver cómo funciona?",
+      },
+      {
+        keywords: ["automatiz", "operacion", "dashboard", "n8n", "reporte", "proceso", "gestion"],
+        text: "Genial. Nuestro servicio de **Gestión Integrada de Operaciones** es justo lo que necesitas. Unificamos tus herramientas en un solo panel con reportes automáticos y flujos de trabajo inteligentes. Todo sincronizado en tiempo real. ¿Te gustaría una demo personalizada?",
+      },
+    ];
+
+    function findResponse(input) {
+      const lower = input.toLowerCase();
+      for (const r of responses) {
+        for (const kw of r.keywords) {
+          if (lower.includes(kw)) return r.text;
+        }
+      }
+      return "Gracias por compartirlo. En Scalio tenemos tres líneas de servicio que podrían interesarte:\n\n🌐 **Presencia Digital Profesional** — Sitios web que venden.\n🤖 **Atención al Cliente Inteligente** — WhatsApp automatizado 24/7.\n⚙️ **Gestión Integrada de Operaciones** — Tu negocio en un solo panel.\n\n¿Sobre cuál te gustaría saber más?";
+    }
+
+    function addMessage(text, isUser) {
+      const div = document.createElement("div");
+      div.className = `chat-msg ${isUser ? "user" : "bot"}`;
+      const content = document.createElement("div");
+      content.className = "msg-content";
+      if (isUser) {
+        content.textContent = text;
+      } else {
+        content.innerHTML = text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\n/g, "<br>");
+      }
+      div.appendChild(content);
+      chatMessages.appendChild(div);
+      requestAnimationFrame(() => {
+        chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: "smooth" });
+      });
+    }
+
+    function showTyping() {
+      const div = document.createElement("div");
+      div.className = "typing-indicator";
+      div.id = "typingIndicator";
+      for (let i = 0; i < 3; i++) {
+        const dot = document.createElement("span");
+        dot.className = "typing-dot";
+        div.appendChild(dot);
+      }
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function hideTyping() {
+      const el = document.getElementById("typingIndicator");
+      if (el) el.remove();
+    }
+
+    function handleSend() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+      addMessage(text, true);
+      chatInput.value = "";
+      showTyping();
+      setTimeout(() => {
+        hideTyping();
+        const reply = findResponse(text);
+        addMessage(reply, false);
+      }, 1200 + Math.random() * 800);
+    }
+
+    chatSendBtn.addEventListener("click", handleSend);
+    chatInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") handleSend();
+    });
+  })();
+</script>

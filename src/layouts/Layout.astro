@@ -1,5 +1,5 @@
 ---
-import "@fontsource-variable/figtree/wght.css";
+import "@fontsource-variable/inter/wght.css";
 
 export interface Props {
   title?: string;
@@ -11,7 +11,7 @@ export interface Props {
 }
 
 const {
-  title = "Scalio | Páginas web y automatización para negocios en Perú",
+  title = "Scalio — Transformación Digital para tu Negocio",
   description = "Agencia digital en Lima, Perú. Creamos páginas web que convierten visitantes en clientes y automatizamos tareas repetitivas para tu negocio.",
   image = "/og-image.jpg",
   canonical,
@@ -25,7 +25,6 @@ const canonicalUrl = canonical
   : `${siteUrl}${Astro.url.pathname}`;
 const ogImage = image.startsWith("http") ? image : `${siteUrl}${image}`;
 
-// Schema.org por defecto: Organization + LocalBusiness + WebSite + FAQPage
 const defaultSchema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -53,7 +52,7 @@ const defaultSchema = {
       name: "Scalio - Agencia Digital",
       image: `${siteUrl}/og-image.jpg`,
       url: siteUrl,
-      email: "hola@scalio.pe",
+      email: "scalio.contact@gmail.com",
       address: {
         "@type": "PostalAddress",
         streetAddress: "Lima",
@@ -102,14 +101,8 @@ const finalSchema = schema || defaultSchema;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- ═══════════════════════════════════════════════ -->
-    <!-- SEO TÉCNICO — NUEVO (no toca tu diseño)       -->
-    <!-- ═══════════════════════════════════════════════ -->
-
-    <!-- Canonical -->
     <link rel="canonical" href={canonicalUrl} />
 
-    <!-- Robots -->
     {
       noindex ? (
         <meta name="robots" content="noindex, nofollow" />
@@ -121,11 +114,9 @@ const finalSchema = schema || defaultSchema;
       )
     }
 
-    <!-- Título y descripción optimizados -->
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
@@ -136,35 +127,21 @@ const finalSchema = schema || defaultSchema;
     <meta property="og:locale" content="es_PE" />
     <meta property="og:site_name" content="Scalio" />
 
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={canonicalUrl} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Seguridad y performance -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="theme-color" content="#000000" />
     <meta name="color-scheme" content="dark" />
 
-    <!-- Preconnect para velocidad -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
 
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/scalio-logo.webp" />
 
-    <!-- Schema.org JSON-LD (lo que faltaba) -->
     <script type="application/ld+json" set:html={JSON.stringify(finalSchema)} />
-
-    <!-- ═══════════════════════════════════════════════ -->
-    <!-- TU DISEÑO ORIGINAL — SIN CAMBIOS               -->
-    <!-- ═══════════════════════════════════════════════ -->
-
-    <!-- Google Fonts: Coloca aquí tu fuente manualmente -->
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=TU_FUENTE" rel="stylesheet" /> -->
 
     <!-- GSAP CDN -->
     <script
@@ -175,12 +152,7 @@ const finalSchema = schema || defaultSchema;
       is:inline
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
     ></script>
-    <script
-      is:inline
-      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"
-    ></script>
 
-    <!-- Slot para head adicional (breadcrumbs, schemas extra, etc.) -->
     <slot name="head" />
   </head>
   <body>
@@ -189,33 +161,23 @@ const finalSchema = schema || defaultSchema;
 </html>
 
 <style is:global>
-  /* ═══════════════════════════════════════════════ */
-  /* TU CSS ORIGINAL — SIN NINGÚN CAMBIO             */
-  /* ═══════════════════════════════════════════════ */
-
-  /* ─── CSS Variables ─────────────────────────── */
   :root {
-    --yellow: #facc15;
-    --yellow-dim: #ca9e00;
-    --dark: #0a0a0a;
-    --dark-2: #111111;
-    --dark-3: #1a1a1a;
-    --white: #ffffff;
-    --white-muted: rgba(255, 255, 255, 0.6);
-    --white-dim: rgba(255, 255, 255, 0.08);
-    --border: rgba(255, 255, 255, 0.1);
-    --glass-bg: rgba(10, 10, 10, 0.6);
-    --glass-border: rgba(250, 204, 21, 0.15);
-
-    /* Fuente: reemplaza con tu Google Font */
-    --font-sans: "Figtree Variable", sans-serif;
-    --font-display: "Georgia", serif;
-
-    /* Easing */
-    --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+    --bg: #000000;
+    --bg-alt: #1F2937;
+    --text: #F9FAFB;
+    --text-muted: #9CA3AF;
+    --primary: #F9CC15;
+    --primary-dark: #D4A80E;
+    --primary-light: rgba(249,204,21,0.15);
+    --accent: #F9CC15;
+    --card: #1F2937;
+    --border: #374151;
+    --radius: 16px;
+    --shadow: 0 4px 24px rgba(0,0,0,.3);
+    --shadow-lg: 0 12px 48px rgba(0,0,0,.4);
+    --font-sans: "Inter Variable", system-ui, -apple-system, sans-serif;
   }
 
-  /* ─── Reset & Base ──────────────────────────── */
   *,
   *::before,
   *::after {
@@ -225,61 +187,23 @@ const finalSchema = schema || defaultSchema;
   }
 
   html {
-    scroll-behavior: smooth;
     font-size: 16px;
-    background-color: var(--dark);
+    background-color: var(--bg);
   }
 
   body {
     font-family: var(--font-sans);
-    color: var(--white);
-    background-color: var(--dark);
-    overflow-x: hidden;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* ─── Scrollbar ─────────────────────────────── */
-  ::-webkit-scrollbar {
-    width: 4px;
-  }
-  ::-webkit-scrollbar-track {
-    background: var(--dark);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: var(--yellow);
-    border-radius: 2px;
-  }
-
-  /* ─── Selection ─────────────────────────────── */
-  ::selection {
-    background: var(--yellow);
-    color: var(--dark);
-  }
-
-  /* ─── Typography ─────────────────────────────── */
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-family: var(--font-display);
-    font-weight: 400;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-  }
-
-  h1 {
-    font-size: clamp(3rem, 8vw, 7rem);
-  }
-  h2 {
-    font-size: clamp(2rem, 5vw, 4.5rem);
-  }
-  h3 {
-    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-  }
-  p {
-    line-height: 1.7;
-    color: var(--white-muted);
+  img {
+    max-width: 100%;
+    display: block;
   }
 
   a {
@@ -287,90 +211,16 @@ const finalSchema = schema || defaultSchema;
     text-decoration: none;
   }
 
-  img {
-    display: block;
-    max-width: 100%;
+  ::selection {
+    background: var(--primary);
+    color: #fff;
   }
 
-  /* ─── Page Transition Overlay ─────────────────── */
-  #page-overlay {
-    position: fixed;
-    inset: 0;
-    background: var(--yellow);
-    z-index: 9999;
-    transform: scaleY(0);
-    transform-origin: bottom;
-    pointer-events: none;
-  }
-
-  /* ─── Cursor ─────────────────────────────────── */
-  .cursor {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    background: var(--yellow);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9000;
-    transform: translate(-50%, -50%);
-    transition:
-      transform 0.1s ease,
-      width 0.3s ease,
-      height 0.3s ease,
-      opacity 0.3s;
-    mix-blend-mode: difference;
-  }
-
-  .cursor-ring {
-    position: fixed;
-    width: 36px;
-    height: 36px;
-    border: 1px solid rgba(250, 204, 21, 0.5);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 8999;
-    transform: translate(-50%, -50%);
-    transition: all 0.15s ease;
-  }
-
-  .cursor--text {
-    width: auto !important;
-    height: auto !important;
-    background: var(--yellow);
-    color: var(--dark);
-    padding: 0.5rem 1rem;
-    border-radius: 100px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    mix-blend-mode: normal;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* ─── Glass ──────────────────────────────────── */
-  .glass {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid var(--glass-border);
-  }
-
-  /* ─── Utilities ──────────────────────────────── */
   .container {
     width: 100%;
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2.5rem;
-  }
-
-  @media (max-width: 768px) {
-    .container {
-      padding: 0 1.25rem;
-    }
+    padding: 0 24px;
   }
 
   .sr-only {
@@ -384,75 +234,17 @@ const finalSchema = schema || defaultSchema;
     border: 0;
   }
 
-  /* ─── Reveal Animations (DESACTIVADAS) ───────────── */
-  .reveal {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .reveal-left {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .reveal-right {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .split-char {
-    display: inline-block;
-    overflow: hidden;
-  }
-
-  /* ─── Shared Button Styles ──────────────────────── */
-  .btn-primary {
-    padding: 0.9rem 2.25rem;
-    background: var(--yellow);
-    color: var(--dark);
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    border-radius: 100px;
-    transition: all 0.3s ease;
-    display: inline-block;
-    text-align: center;
-  }
-
-  .btn-primary:hover {
-    background: var(--white);
-    transform: translateY(-2px);
-  }
-
-  .btn-ghost {
-    padding: 0.9rem 2.25rem;
-    border: 1px solid var(--border);
-    color: var(--white-muted);
-    font-size: 0.85rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    border-radius: 100px;
-    transition: all 0.3s ease;
-    display: inline-block;
-    text-align: center;
-  }
-
-  .btn-ghost:hover {
-    border-color: var(--yellow);
-    color: var(--yellow);
-  }
-
-  /* ═══════════════════════════════════════════════ */
-  /* SEO: ACCESIBILIDAD EXTRA (no afecta diseño)    */
-  /* ═══════════════════════════════════════════════ */
+  .reveal { opacity: 0; transform: translateY(40px); }
+  .reveal-left { opacity: 0; transform: translateX(-60px); }
+  .reveal-right { opacity: 0; transform: translateX(60px); }
+  .reveal-scale { opacity: 0; transform: scale(.9); }
 
   .skip-link {
     position: absolute;
     top: -40px;
     left: 0;
-    background: var(--yellow);
-    color: var(--dark);
+    background: var(--primary);
+    color: #fff;
     padding: 8px 16px;
     z-index: 10000;
     font-weight: 600;
@@ -464,7 +256,40 @@ const finalSchema = schema || defaultSchema;
   }
 
   :focus-visible {
-    outline: 2px solid var(--yellow);
+    outline: 2px solid var(--primary);
     outline-offset: 2px;
+  }
+
+  /* Scroll Progress */
+  .scroll-progress {
+    position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 1000;
+    background: var(--border);
+    transform-origin: 0 50%;
+    scale: 0 1;
+  }
+
+  /* Navigation Dots */
+  .nav-dots {
+    position: fixed; right: 24px; top: 50%; transform: translateY(-50%);
+    z-index: 100; display: flex; flex-direction: column; gap: 12px;
+  }
+
+  .nav-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--border); border: 2px solid transparent;
+    cursor: pointer; transition: all .4s ease;
+  }
+
+  .nav-dot.active {
+    background: var(--primary); border-color: var(--primary); scale: 1.3;
+  }
+
+  .nav-dot:hover {
+    background: var(--primary); scale: 1.2;
+  }
+
+  @media (max-width: 768px) {
+    .nav-dots { right: 12px; }
+    .nav-dot { width: 8px; height: 8px; }
   }
 </style>

@@ -1,305 +1,182 @@
+---
+import ScrollText from "./ScrollText.astro";
+import GlitterWrap from "../GlitterWrap.astro";
+
+const words = ["Scalio", "IA", "Automatización"];
+const color = "#F9CC15";
+
+const morph = 0.8;
+const hold = 2.5;
+const slot = morph + hold;
+const cycle = slot * words.length;
+const mIn = ((morph / cycle) * 100).toFixed(4);
+const mHold = (((morph + hold) / cycle) * 100).toFixed(4);
+const mOut = (((2 * morph + hold) / cycle) * 100).toFixed(4);
+---
+
 <section class="hero" id="hero">
-  <div class="hero-bg">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-    <div class="grid-overlay"></div>
+  <div class="hero-bg-layer"></div>
+  <div class="hero-glitter-layer">
+    <GlitterWrap />
   </div>
 
-  <div class="container hero-content">
-    <div class="hero-tag">
-      <span class="tag-dot"></span>
-      Agencia digital · Lima, Perú
-    </div>
+  <img class="hero-logo" src="/scalio-logo.webp" alt="Scalio" />
+  <div class="hero-top-right">
+    <span class="hero-badge hero-ubication">Lima - Perú</span>
+    <a class="hero-badge hero-charlemos"
+      href="https://wa.me/51994660039"
+      target="_blank"
+      rel="noopener">Charlemos
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7l-10 10" /><path d="M8 7l9 0l0 9" /></svg></a
+    >
+  </div>
 
-    <h1 class="hero-headline" id="hero-headline">
-      <span class="line" id="line1">Tu negocio crece</span>
-      <span class="line italic" id="line2">con nosotros.</span>
+  <div class="hero-capsule">
+    <h1 class="hero-morph">
+      <span class="morph-spacer">Automatización</span>
+      {words.map((word, i) => (
+        <span
+          class="morph-word"
+          style={`--delay:${(slot * i).toFixed(3)}s; --cycle:${cycle}s; color:${color};`}
+        >
+          {word}
+        </span>
+      ))}
     </h1>
-
-    <div class="hero-sub" id="hero-sub">
-      <p class="hero-sub-main">
-        Tu presencia online deja de ser gasto y <strong>se convierte en tu mejor empleado.</strong>
-      </p>
-      <p class="hero-sub-secondary">
-        Creamos páginas web que convierten visitantes en clientes y
-        automatizamos tus tareas repetitivas para que enfoques en hacer crecer
-        tu negocio.
-      </p>
-
-      <div class="hero-actions">
-        <a href="https://wa.me/51915262911" target="_blank" class="btn-primary" data-cursor-expand>
-          Hablemos de tu crecimiento
-        </a>
-        <a href="#servicios" class="btn-ghost" data-cursor-expand>
-          Ver qué hacemos ↓
-        </a>
-      </div>
-    </div>
   </div>
 
-  <div class="scroll-indicator" id="scroll-indicator">
-    <div class="scroll-line"></div>
-    <span>Scroll</span>
+  <div class="hero-carousel">
+    <ScrollText compact />
   </div>
 </section>
 
 <style>
   .hero {
     position: relative;
-    min-height: 100svh;
+    min-height: 100dvh;
     display: flex;
     align-items: center;
+    justify-content: center;
+    padding: 32px;
     overflow: hidden;
-    padding: 8rem 0 4rem;
   }
 
-  .hero-bg {
+  .hero-bg-layer {
     position: absolute;
     inset: 0;
-    z-index: 0;
+    background: var(--bg);
+    z-index: -2;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 5.24vw), 0 100%);
   }
 
-  .blob {
+  .hero-glitter-layer {
     position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    animation: blobFloat 8s ease-in-out infinite alternate;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 5.24vw), 0 100%);
   }
 
-  .blob-1 {
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(
-      circle,
-      rgba(250, 204, 21, 0.18) 0%,
-      transparent 70%
-    );
-    top: -100px;
-    left: -100px;
-    animation-delay: 0s;
+  .hero-logo {
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    height: 40px;
+    width: auto;
   }
 
-  .blob-2 {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(
-      circle,
-      rgba(250, 204, 21, 0.08) 0%,
-      transparent 70%
-    );
-    bottom: 0;
-    right: 0;
-    animation-delay: -3s;
+  .hero-badge {
+    position: absolute;
+    padding: 10px 20px;
+    background: transparent;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: .02em;
+    border-radius: 0;
+    border: 1px solid var(--primary);
+    line-height: 1.2;
+    white-space: nowrap;
   }
 
-  .blob-3 {
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(
-      circle,
-      rgba(250, 204, 21, 0.12) 0%,
-      transparent 70%
-    );
-    top: 40%;
+  .hero-charlemos {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hero-top-right {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 2;
+  }
+
+  .hero-top-right .hero-badge {
+    position: static;
+  }
+
+  .hero-carousel {
+    position: absolute;
+    bottom: -24px;
     left: 50%;
-    animation-delay: -6s;
-  }
-
-  @keyframes blobFloat {
-    0% {
-      transform: translate(0, 0) scale(1);
-    }
-    100% {
-      transform: translate(40px, 30px) scale(1.1);
-    }
-  }
-
-  .grid-overlay {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 80px 80px;
-  }
-
-  .hero-content {
-    position: relative;
+    transform: translateX(-50%);
+    width: 100vw;
     z-index: 1;
   }
 
-  .hero-tag {
+  .hero-capsule {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--white-muted);
-    margin-bottom: 2rem;
+    justify-content: center;
+    background: transparent;
+    border-radius: 9999px;
+    padding: 18px 36px;
   }
 
-  .tag-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--yellow);
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%,
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.5;
-      transform: scale(1.3);
-    }
-  }
-
-  .hero-headline {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 3rem;
-    overflow: hidden;
-  }
-
-  .hero-headline .line {
-    display: block;
-    overflow: hidden;
-    padding-bottom: 0.05em;
-  }
-
-  .hero-headline .italic {
-    font-style: italic;
-    color: var(--yellow);
-    padding-left: 0.5rem;
-  }
-
-  .hero-sub {
-    max-width: 600px;
-  }
-
-  .hero-sub-main {
-    font-size: 1.25rem;
-    color: var(--white);
-    margin-bottom: 0.75rem;
-    line-height: 1.5;
-  }
-
-  .hero-sub-main strong {
-    color: var(--yellow);
-    font-weight: 600;
-  }
-
-  .hero-sub-secondary {
-    font-size: 1rem;
-    color: var(--white-muted);
-    margin-bottom: 2rem;
-    line-height: 1.6;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 1.5rem;
-  }
-
-  .scroll-indicator {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
+  .hero-morph {
+    position: relative;
+    display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: center;
+    line-height: 1.2;
+    min-height: 1.2em;
+    margin: 0;
+    font-family: inherit;
+    font-size: clamp(54px, 8.5vw, 108px);
+    font-weight: 900;
+    letter-spacing: -.04em;
+    text-align: center;
   }
 
-  .scroll-line {
-    width: 1px;
-    height: 50px;
-    background: linear-gradient(to bottom, var(--yellow), transparent);
-    animation: scrollLine 2s ease-in-out infinite;
+  .morph-spacer {
+    visibility: hidden;
+    white-space: nowrap;
+    display: inline-block;
   }
 
-  @keyframes scrollLine {
-    0% {
-      transform: scaleY(0);
-      transform-origin: top;
-    }
-    50% {
-      transform: scaleY(1);
-      transform-origin: top;
-    }
-    51% {
-      transform: scaleY(1);
-      transform-origin: bottom;
-    }
-    100% {
-      transform: scaleY(0);
-      transform-origin: bottom;
-    }
-  }
-
-  .scroll-indicator span {
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--white-muted);
-  }
-
-  .hero-tag,
-  #hero-sub,
-  #scroll-indicator {
+  .morph-word {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
     opacity: 0;
-    transform: translateY(20px);
+    will-change: opacity, filter, transform;
+    animation: morphAnim var(--cycle) var(--delay) ease-out infinite;
   }
 
-  .hero-headline .line {
-    opacity: 0;
-    transform: translateY(100%);
-  }
+
 </style>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    if (typeof gsap === "undefined") return;
-
-    const tl = gsap.timeline({ delay: 0.3 });
-
-    tl.fromTo(
-      ".hero-tag",
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.7, ease: "expo.out" },
-    )
-      .fromTo(
-        "#line1",
-        { opacity: 0, y: "100%" },
-        { y: "0%", opacity: 1, duration: 1, ease: "expo.out" },
-        "-=0.3",
-      )
-      .fromTo(
-        "#line2",
-        { opacity: 0, y: "100%" },
-        { y: "0%", opacity: 1, duration: 1, ease: "expo.out" },
-        "-=0.75",
-      )
-      .fromTo(
-        "#hero-sub",
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "expo.out" },
-        "-=0.5",
-      )
-      .fromTo(
-        "#scroll-indicator",
-        { opacity: 0 },
-        { opacity: 1, duration: 0.5 },
-        "-=0.2",
-      );
-  });
-</script>
+<style set:html={`
+@keyframes morphAnim {
+  0% { opacity: 0; filter: blur(20px); transform: translate(-50%, -50%) scale(0.8); }
+  ${mIn}% { opacity: 1; filter: blur(0px); transform: translate(-50%, -50%) scale(1); }
+  ${mHold}% { opacity: 1; filter: blur(0px); transform: translate(-50%, -50%) scale(1); }
+  ${mOut}%, 100% { opacity: 0; filter: blur(20px); transform: translate(-50%, -50%) scale(1.2); }
+}
+`} />

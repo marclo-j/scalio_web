@@ -17,6 +17,12 @@ pnpm-debug.log*
 .env
 .env.production
 
+# temp log files
+dev*.log
+
+# playwright mcp
+.playwright-mcp/
+
 # macOS-specific files
 .DS_Store
 
