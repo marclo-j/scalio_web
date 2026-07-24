@@ -1,6 +1,12 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef, type CSSProperties } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  type CSSProperties,
+} from "react";
 
 interface ServiceItem {
   text: string;
@@ -72,7 +78,12 @@ export default function ServiceCoverflow({
   const lockRef = useRef(false);
   const lock = useCallback(() => {
     lockRef.current = true;
-    window.setTimeout(() => { lockRef.current = false; }, Math.max(50, moveDur * 1000));
+    window.setTimeout(
+      () => {
+        lockRef.current = false;
+      },
+      Math.max(50, moveDur * 1000),
+    );
   }, [moveDur]);
 
   const handleCardClick = useCallback(
@@ -81,22 +92,28 @@ export default function ServiceCoverflow({
       lock();
       setActive((a) => (i === a ? (a + 1) % n : i));
     },
-    [n, lock]
+    [n, lock],
   );
 
   const onKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      if (e.key === "ArrowRight") { e.preventDefault(); handleCardClick((active + 1) % n); }
-      else if (e.key === "ArrowLeft") { e.preventDefault(); handleCardClick(((active - 1) + n) % n); }
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        handleCardClick((active + 1) % n);
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        handleCardClick((active - 1 + n) % n);
+      }
     },
-    [active, n, handleCardClick]
+    [active, n, handleCardClick],
   );
 
   const { dur, ease } = cssTransition(transition);
   const transitionCss = `transform ${dur}s ${ease}, opacity ${dur}s ${ease}`;
 
   const effectiveRadius =
-    (Math.max(0, Math.min(20, radius)) / 20) * (Math.min(cardWidth, cardHeight) / 2);
+    (Math.max(0, Math.min(20, radius)) / 20) *
+    (Math.min(cardWidth, cardHeight) / 2);
   const dim = 1 - Math.max(0, Math.min(100, opacity)) / 100;
 
   return (
@@ -105,7 +122,7 @@ export default function ServiceCoverflow({
         ...(style || {}),
         position: "relative",
         width: "100%",
-        maxWidth: 1100,
+        minWidth: 1100,
         margin: "0 auto",
         display: "flex",
         flexDirection: "column",
@@ -127,7 +144,9 @@ export default function ServiceCoverflow({
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          minHeight: cardHeight + 40,
+          minHeight: cardHeight + 140,
+          padding: "0 170px",
+          boxSizing: "border-box",
         }}
       >
         <div
