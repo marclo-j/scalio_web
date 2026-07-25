@@ -322,6 +322,9 @@ export default function BlurCarousel(props: BlurCarouselProps) {
               src={s.image?.src || ""}
               alt={s.image?.alt || s.title || ""}
               draggable={false}
+              // LCP image: first slide gets high priority + eager loading
+              loading={i === 0 ? "eager" : "lazy"}
+              fetchPriority={i === 0 ? "high" : "auto"}
               style={{
                 position: "absolute",
                 inset: 0,

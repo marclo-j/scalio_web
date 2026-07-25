@@ -199,6 +199,8 @@ export default function ServiceCoverflow({
                   src={slide.image}
                   alt={slide.text}
                   draggable={false}
+                  loading="lazy"
+                  decoding="async"
                   style={{
                     position: "absolute",
                     inset: 0,

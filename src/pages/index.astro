@@ -31,37 +31,56 @@ const faqSchema = null; // removed FAQ section
   </BackgroundGradientAnimation>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      function initGSAP() {
-        if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return false;
-        try {
-          gsap.registerPlugin(ScrollTrigger);
+    // Wait for GSAP to be available (loaded with defer), then init animations
+    function waitForGSAP() {
+      return new Promise((resolve) => {
+        if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+          return resolve();
+        }
+        let attempts = 0;
+        const check = () => {
+          if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+            return resolve();
+          }
+          if (++attempts < 60) requestAnimationFrame(check);
+        };
+        requestAnimationFrame(check);
+      });
+    }
 
-          // Scroll progress bar
-          gsap.to("#scrollProgress", {
-            scaleX: 1,
-            ease: "none",
-            scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 1 }
-          });
+    // Wait until at least one element matching the selector exists in the DOM.
+    // React islands (client:load) hydrate async, so their children may not be
+    // present immediately even though SSR-rendered HTML contains them.
+    function waitForSelector(selector, timeout = 5000) {
+      return new Promise((resolve) => {
+        if (document.querySelector(selector)) return resolve(true);
+        const observer = new MutationObserver((mutations, obs) => {
+          if (document.querySelector(selector)) {
+            obs.disconnect();
+            resolve(true);
+          }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+        setTimeout(() => { observer.disconnect(); resolve(false); }, timeout);
+      });
+    }
 
-          // Hero reveal
-          gsap.utils.toArray(".hero .reveal").forEach((el, i) => {
-            gsap.fromTo(el,
-              { y: 50, opacity: 0 },
-              {
-                y: 0, opacity: 1, duration: 1, ease: "power3.out",
-                delay: 0.1 + i * 0.12,
-                scrollTrigger: {
-                  trigger: ".hero",
-                  start: "top 80%",
-                  toggleActions: "play none none none"
-                }
-              }
-            );
-          });
+    async function initGSAP() {
+      await waitForGSAP();
+      try {
+        gsap.registerPlugin(ScrollTrigger);
 
-          // Services section fade-in
-          gsap.fromTo(".services-reveal-container",
+        // Scroll progress bar (no DOM target dependency, safe to run immediately)
+        gsap.to("#scrollProgress", {
+          scaleX: 1,
+          ease: "none",
+          scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 1 }
+        });
+
+        // Services section fade-in (selector fixed: was .services-reveal-container which doesn't exist)
+        waitForSelector(".services-section").then((found) => {
+          if (!found) return;
+          gsap.fromTo(".services-section",
             { y: 40, opacity: 0 },
             {
               y: 0, opacity: 1, duration: 1, ease: "power3.out",
@@ -72,8 +91,12 @@ const faqSchema = null; // removed FAQ section
               }
             }
           );
+          ScrollTrigger.refresh();
+        });
 
-          // Diff cards stagger
+        // Diff cards stagger
+        waitForSelector(".diff-card").then((found) => {
+          if (!found) return;
           gsap.utils.toArray(".diff-card").forEach((el, i) => {
             gsap.fromTo(el,
               { y: 40, opacity: 0, scale: 0.92 },
@@ -88,8 +111,12 @@ const faqSchema = null; // removed FAQ section
               }
             );
           });
+          ScrollTrigger.refresh();
+        });
 
-          // Testimonials stagger
+        // Testimonials stagger
+        waitForSelector(".testimonial-card").then((found) => {
+          if (!found) return;
           gsap.utils.toArray(".testimonial-card").forEach((el, i) => {
             gsap.fromTo(el,
               { y: 50, opacity: 0 },
@@ -104,8 +131,12 @@ const faqSchema = null; // removed FAQ section
               }
             );
           });
+          ScrollTrigger.refresh();
+        });
 
-          // CTA section fade-in
+        // CTA section fade-in
+        waitForSelector(".cta-inner").then((found) => {
+          if (!found) return;
           gsap.fromTo(".cta-inner",
             { y: 40, opacity: 0 },
             {
@@ -117,26 +148,17 @@ const faqSchema = null; // removed FAQ section
               }
             }
           );
+          ScrollTrigger.refresh();
+        });
 
-          // ScrollTrigger refresh after WebGL/React components settle
-          setTimeout(() => ScrollTrigger.refresh(), 1500);
-          setTimeout(() => ScrollTrigger.refresh(), 3000);
-
-          return true;
-        } catch (e) {
-          return false;
-        }
+        // ScrollTrigger refresh after WebGL/React components settle
+        setTimeout(() => ScrollTrigger.refresh(), 1500);
+        setTimeout(() => ScrollTrigger.refresh(), 3000);
+      } catch (e) {
+        console.error("GSAP init failed:", e);
       }
+    }
 
-      if (!initGSAP()) {
-        let attempts = 0;
-        function retry() {
-          attempts++;
-          if (initGSAP()) return;
-          if (attempts < 30) requestAnimationFrame(retry);
-        }
-        requestAnimationFrame(retry);
-      }
-    });
+    initGSAP();
   </script>
 </Layout>
