@@ -35,13 +35,6 @@ export default defineConfig({
   vite: {
     build: {
       cssMinify: true,
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            vendor: ["astro"],
-          },
-        },
-      },
     },
   },
   prefetch: {

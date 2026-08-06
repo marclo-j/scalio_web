@@ -11,7 +11,7 @@ const { compact = false } = Astro.props;
                 scrollWords.map((word) => (
                     <span class="scroll-word">
                         {word}
-                        <img src="/asterisk.svg" alt="" class="asterisk-icon" />
+                        <img src="/asterisk.svg" alt="" class="asterisk-icon" width="24" height="24" loading="lazy" decoding="async" />
                     </span>
                 ))
             }
@@ -23,6 +23,10 @@ const { compact = false } = Astro.props;
                             src="/asterisk.svg"
                             alt=""
                             class="asterisk-icon"
+                            width="24"
+                            height="24"
+                            loading="lazy"
+                            decoding="async"
                             aria-hidden="true"
                         />
                     </span>
