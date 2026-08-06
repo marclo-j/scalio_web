@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Footer from "../components/Footer.astro";
+import BackgroundGradient from "../components/BackgroundGradient.astro";
 
 import Hero from "../components/sections/Hero.astro";
 import Services from "../components/sections/Services.astro";
@@ -8,9 +9,6 @@ import Trabajo from "../components/sections/Trabajo.astro";
 import Diferenciadores from "../components/sections/Diferenciadores.astro";
 import Testimonials from "../components/sections/Testimonials.astro";
 import CTA from "../components/sections/CTA.astro";
-import { BackgroundGradientAnimation } from "../ui/background-gradient-animation";
-
-const faqSchema = null; // removed FAQ section
 ---
 
 <Layout
@@ -20,7 +18,7 @@ const faqSchema = null; // removed FAQ section
 >
   <div class="scroll-progress" id="scrollProgress"></div>
 
-  <BackgroundGradientAnimation client:load>
+  <BackgroundGradient>
     <Hero />
     <Services />
     <Trabajo />
@@ -28,137 +26,19 @@ const faqSchema = null; // removed FAQ section
     <Testimonials />
     <CTA />
     <Footer />
-  </BackgroundGradientAnimation>
+  </BackgroundGradient>
 
   <script>
-    // Wait for GSAP to be available (loaded with defer), then init animations
-    function waitForGSAP() {
-      return new Promise((resolve) => {
-        if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-          return resolve();
-        }
-        let attempts = 0;
-        const check = () => {
-          if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-            return resolve();
-          }
-          if (++attempts < 60) requestAnimationFrame(check);
-        };
-        requestAnimationFrame(check);
-      });
+    // Lazy-load GSAP only when the browser is idle to avoid blocking the initial
+    // render. The whole animation bundle (gsap + ScrollTrigger) gets code-split
+    // into its own chunk by Vite, so it never blocks the main thread on load.
+    const loadAnimations = () =>
+      import("../scripts/animations").then((m) => m.initAnimations());
+
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(loadAnimations, { timeout: 2000 });
+    } else {
+      setTimeout(loadAnimations, 1500);
     }
-
-    // Wait until at least one element matching the selector exists in the DOM.
-    // React islands (client:load) hydrate async, so their children may not be
-    // present immediately even though SSR-rendered HTML contains them.
-    function waitForSelector(selector, timeout = 5000) {
-      return new Promise((resolve) => {
-        if (document.querySelector(selector)) return resolve(true);
-        const observer = new MutationObserver((mutations, obs) => {
-          if (document.querySelector(selector)) {
-            obs.disconnect();
-            resolve(true);
-          }
-        });
-        observer.observe(document.body, { childList: true, subtree: true });
-        setTimeout(() => { observer.disconnect(); resolve(false); }, timeout);
-      });
-    }
-
-    async function initGSAP() {
-      await waitForGSAP();
-      try {
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Scroll progress bar (no DOM target dependency, safe to run immediately)
-        gsap.to("#scrollProgress", {
-          scaleX: 1,
-          ease: "none",
-          scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 1 }
-        });
-
-        // Services section fade-in (selector fixed: was .services-reveal-container which doesn't exist)
-        waitForSelector(".services-section").then((found) => {
-          if (!found) return;
-          gsap.fromTo(".services-section",
-            { y: 40, opacity: 0 },
-            {
-              y: 0, opacity: 1, duration: 1, ease: "power3.out",
-              scrollTrigger: {
-                trigger: ".services-section",
-                start: "top 85%",
-                toggleActions: "play none none none"
-              }
-            }
-          );
-          ScrollTrigger.refresh();
-        });
-
-        // Diff cards stagger
-        waitForSelector(".diff-card").then((found) => {
-          if (!found) return;
-          gsap.utils.toArray(".diff-card").forEach((el, i) => {
-            gsap.fromTo(el,
-              { y: 40, opacity: 0, scale: 0.92 },
-              {
-                y: 0, opacity: 1, scale: 1, duration: 0.7, ease: "power3.out",
-                delay: i * 0.1,
-                scrollTrigger: {
-                  trigger: ".diff-grid",
-                  start: "top 80%",
-                  toggleActions: "play none none none"
-                }
-              }
-            );
-          });
-          ScrollTrigger.refresh();
-        });
-
-        // Testimonials stagger
-        waitForSelector(".testimonial-card").then((found) => {
-          if (!found) return;
-          gsap.utils.toArray(".testimonial-card").forEach((el, i) => {
-            gsap.fromTo(el,
-              { y: 50, opacity: 0 },
-              {
-                y: 0, opacity: 1, duration: 0.8, ease: "power2.out",
-                delay: i * 0.15,
-                scrollTrigger: {
-                  trigger: el,
-                  start: "top 88%",
-                  toggleActions: "play none none none"
-                }
-              }
-            );
-          });
-          ScrollTrigger.refresh();
-        });
-
-        // CTA section fade-in
-        waitForSelector(".cta-inner").then((found) => {
-          if (!found) return;
-          gsap.fromTo(".cta-inner",
-            { y: 40, opacity: 0 },
-            {
-              y: 0, opacity: 1, duration: 1, ease: "power3.out",
-              scrollTrigger: {
-                trigger: ".cta-section",
-                start: "top 85%",
-                toggleActions: "play none none none"
-              }
-            }
-          );
-          ScrollTrigger.refresh();
-        });
-
-        // ScrollTrigger refresh after WebGL/React components settle
-        setTimeout(() => ScrollTrigger.refresh(), 1500);
-        setTimeout(() => ScrollTrigger.refresh(), 3000);
-      } catch (e) {
-        console.error("GSAP init failed:", e);
-      }
-    }
-
-    initGSAP();
   </script>
 </Layout>
