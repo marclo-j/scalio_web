@@ -19,9 +19,26 @@ pnpm-debug.log*
 
 # temp log files
 dev*.log
+devout.log
 
 # playwright mcp
 .playwright-mcp/
+
+# lighthouse reports (keep them local, do not commit)
+.lighthouse-after*.json
+.lh-final.json
+.lh-*.json
+chromewebdata_*.report.html
+*-*.vercel.app-*.json
+*-*.vercel.app_*.json
+
+# preview / dev server artifacts
+preview*.out
+preview*.err
+
+# scratch /.AssetClue
+mobile-hero.png
+page-snapshot.txt
 
 # macOS-specific files
 .DS_Store
