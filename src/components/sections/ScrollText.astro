@@ -34,17 +34,17 @@ const { compact = false } = Astro.props;
 
 <style>
     .scroll-text-section {
-        padding: 60px 0;
-        margin: -24px 0;
+        padding: 40px 0;
+        margin: 0;
     }
 
     .scroll-text-section.compact {
-        padding: 10px;
+        padding: 0;
         margin: 0;
     }
 
     .scroll-text-body {
-        transform: rotate(-3deg);
+        transform: rotate(0deg);
         transform-origin: center center;
         background: #f9cc15;
         width: 100%;
@@ -64,7 +64,7 @@ const { compact = false } = Astro.props;
         align-items: center;
         gap: 26px;
         padding: 0 14px;
-        font-size: clamp(19px, 3.2vw, 38px);
+        font-size: clamp(16px, 2.8vw, 38px);
         font-weight: 700;
         color: #000;
         white-space: nowrap;

@@ -15,198 +15,233 @@ const mOut = (((2 * morph + hold) / cycle) * 100).toFixed(4);
 ---
 
 <section class="hero" id="hero">
-  <div class="hero-bg-layer"></div>
-  <div class="hero-glitter-layer">
-    <GlitterWrap />
-  </div>
+    <div class="hero-bg-layer"></div>
+    <div class="hero-glitter-layer">
+        <GlitterWrap />
+    </div>
 
-  <div class="hero-top-left">
-    <img class="hero-logo" src="/scalio-logo.webp" alt="Scalio" width="160" height="160" />
-    <a class="hero-badge nav-btn" href="#servicios">Servicios</a>
-    <a class="hero-badge nav-btn" href="#trabajo">Nuestro trabajo</a>
-    <a class="hero-badge nav-btn" href="#resultados">¿Por qué nosotros?</a>
-    <a class="hero-badge nav-btn" href="#testimonios">Clientes</a>
-  </div>
-  <div class="hero-top-right">
-    <span class="hero-badge hero-ubication">Lima - Perú</span>
-    <a class="hero-badge hero-charlemos"
-      href="https://wa.me/51994660039"
-      target="_blank"
-      rel="noopener">Charlemos
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7l-10 10" /><path d="M8 7l9 0l0 9" /></svg></a
-    >
-  </div>
-
-  <div class="hero-capsule">
-    <h1 class="hero-morph">
-      <span class="morph-spacer">Automatización</span>
-      {words.map((word, i) => (
-        <span
-          class="morph-word"
-          style={`--delay:${(slot * i).toFixed(3)}s; --cycle:${cycle}s; color:${color};`}
+    <div class="hero-top-left">
+        <img
+            class="hero-logo"
+            src="/scalio-logo.webp"
+            alt="Scalio"
+            width="160"
+            height="160"
+        />
+        <a class="hero-badge nav-btn" href="#servicios">Servicios</a>
+        <a class="hero-badge nav-btn" href="#trabajo">Nuestro trabajo</a>
+        <a class="hero-badge nav-btn" href="#resultados">¿Por qué nosotros?</a>
+        <a class="hero-badge nav-btn" href="#testimonios">Clientes</a>
+    </div>
+    <div class="hero-top-right">
+        <span class="hero-badge hero-ubication">Lima - Perú</span>
+        <a
+            class="hero-badge hero-charlemos"
+            href="https://wa.me/51994660039"
+            target="_blank"
+            rel="noopener"
+            >Charlemos
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path d="M17 7l-10 10"></path><path d="M8 7l9 0l0 9"
+                ></path></svg
+            ></a
         >
-          {word}
-        </span>
-      ))}
-    </h1>
-  </div>
+    </div>
 
-  <div class="hero-carousel">
-    <ScrollText compact />
-  </div>
+    <div class="hero-capsule">
+        <h1 class="hero-morph">
+            <span class="morph-spacer">Automatización</span>
+            {
+                words.map((word, i) => (
+                    <span
+                        class="morph-word"
+                        style={`--delay:${(slot * i).toFixed(3)}s; --cycle:${cycle}s; color:${color};`}
+                    >
+                        {word}
+                    </span>
+                ))
+            }
+        </h1>
+    </div>
+
+    <div class="hero-carousel">
+        <ScrollText compact />
+    </div>
 </section>
 
 <style>
-  .hero {
-    position: relative;
-    min-height: 100dvh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px;
-    overflow: hidden;
-  }
+    .hero {
+        position: relative;
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px;
+    }
 
-  .hero-bg-layer {
-    position: absolute;
-    inset: 0;
-    background: var(--bg);
-    z-index: -2;
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 5.24vw), 0 100%);
-  }
+    .hero-bg-layer {
+        position: absolute;
+        inset: 0;
+        background: var(--bg);
+        z-index: -2;
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 5.24vw), 0 100%);
+    }
 
-  .hero-glitter-layer {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 5.24vw), 0 100%);
-  }
+    .hero-glitter-layer {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 5.24vw), 0 100%);
+    }
 
-  .hero-top-left {
-    position: absolute;
-    top: 32px;
-    left: 32px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    z-index: 2;
-  }
+    .hero-top-left {
+        position: absolute;
+        top: 32px;
+        left: 32px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 2;
+    }
 
-  .hero-top-left .hero-badge {
-    position: static;
-    background: #F9CC15;
-    color: #000;
-    border: none;
-  }
+    .hero-top-left .hero-badge {
+        position: static;
+        background: #f9cc15;
+        color: #000;
+        border: none;
+    }
 
-  .hero-logo {
-    height: 40px;
-    width: auto;
-  }
+    .hero-logo {
+        height: 40px;
+        width: auto;
+    }
 
-  .hero-badge {
-    position: absolute;
-    padding: 10px 20px;
-    background: transparent;
-    color: var(--primary);
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: .02em;
-    border-radius: 0;
-    border: 1px solid var(--primary);
-    line-height: 1.2;
-    white-space: nowrap;
-  }
+    .hero-badge {
+        position: absolute;
+        padding: 10px 20px;
+        background: transparent;
+        color: var(--primary);
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.02em;
+        border-radius: 0;
+        border: 1px solid var(--primary);
+        line-height: 1.2;
+        white-space: nowrap;
+    }
 
-  .nav-btn {
-    cursor: pointer;
-  }
+    .nav-btn {
+        cursor: pointer;
+    }
 
-  .hero-charlemos {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
+    .hero-charlemos {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
 
-  .hero-top-right {
-    position: absolute;
-    top: 32px;
-    right: 32px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    z-index: 2;
-  }
+    .hero-top-right {
+        position: absolute;
+        top: 32px;
+        right: 32px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 2;
+    }
 
-  .hero-top-right .hero-badge {
-    position: static;
-    background: #F9CC15;
-    color: #000;
-    border: none;
-  }
+    .hero-top-right .hero-badge {
+        position: static;
+        background: #f9cc15;
+        color: #000;
+        border: none;
+    }
 
-  .hero-carousel {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100vw;
-    z-index: 1;
-  }
+    .hero-carousel {
+        position: absolute;
+        bottom: calc(5.24vw / 2);
+        left: 50%;
+        transform: translateX(-50%) translateY(50%);
+        width: 100vw;
+        z-index: 1;
+    }
 
-  .hero-capsule {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border-radius: 9999px;
-    padding: 18px 36px;
-  }
+    .hero-carousel :global(.scroll-text-section) {
+        margin: 0;
+        padding: 0;
+    }
 
-  .hero-morph {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1.2;
-    min-height: 1.2em;
-    margin: 0;
-    font-family: inherit;
-    font-size: clamp(54px, 8.5vw, 108px);
-    font-weight: 900;
-    letter-spacing: -.04em;
-    text-align: center;
-  }
+    .hero-capsule {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border-radius: 9999px;
+        padding: 18px 36px;
+    }
 
-  .morph-spacer {
-    visibility: hidden;
-    white-space: nowrap;
-    display: inline-block;
-  }
+    .hero-morph {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.2;
+        min-height: 1.2em;
+        margin: 0;
+        font-family: inherit;
+        font-size: clamp(40px, 6.5vw, 86px);
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        text-align: center;
+    }
 
-  .morph-word {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    white-space: nowrap;
-    opacity: 0;
-    will-change: opacity, filter, transform;
-    animation: morphAnim var(--cycle) var(--delay) ease-out infinite;
-  }
+    .morph-spacer {
+        visibility: hidden;
+        white-space: nowrap;
+        display: inline-block;
+    }
 
-  @media (max-width: 768px) {
-    .nav-btn { display: none; }
-  }
+    .morph-word {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+        opacity: 0;
+        will-change: opacity, filter, transform;
+        animation: morphAnim var(--cycle) var(--delay) ease-out infinite;
+    }
 
+    @media (max-width: 768px) {
+        .nav-btn {
+            display: none;
+        }
+        .hero-carousel {
+            bottom: calc(5.24vw / 2);
+        }
+        .hero-capsule {
+            padding: 14px 24px;
+        }
+    }
 </style>
 
-<style set:html={`
+<style
+    set:html={`
 @keyframes morphAnim {
   0% { opacity: 0; filter: blur(20px); transform: translate(-50%, -50%) scale(0.8); }
   ${mIn}% { opacity: 1; filter: blur(0px); transform: translate(-50%, -50%) scale(1); }
   ${mHold}% { opacity: 1; filter: blur(0px); transform: translate(-50%, -50%) scale(1); }
   ${mOut}%, 100% { opacity: 0; filter: blur(20px); transform: translate(-50%, -50%) scale(1.2); }
 }
-`} />
+`}
+></style>

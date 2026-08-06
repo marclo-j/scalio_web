@@ -32,6 +32,19 @@ const SCALE_STEP = 0.16;
 const MAX_VISIBLE = 2;
 const DEPTH = 240;
 
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mql = window.matchMedia(`(max-width: ${breakpoint}px)`);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    setIsMobile(mql.matches);
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, [breakpoint]);
+  return isMobile;
+}
+
 function cssTransition(t: any): { dur: number; ease: string } {
   const dur = t && typeof t.duration === "number" ? t.duration : 0.6;
   let ease = "cubic-bezier(0.22, 1, 0.36, 1)";
@@ -66,6 +79,7 @@ export default function ServiceCoverflow({
   const n = list.length;
   const loop = true;
   const [active, setActive] = useState(0);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     setActive((a) => Math.max(0, Math.min(n - 1, a)));
@@ -115,6 +129,112 @@ export default function ServiceCoverflow({
     (Math.max(0, Math.min(20, radius)) / 20) *
     (Math.min(cardWidth, cardHeight) / 2);
   const dim = 1 - Math.max(0, Math.min(100, opacity)) / 100;
+
+  if (isMobile) {
+    return (
+      <div
+        style={{
+          ...(style || {}),
+          position: "relative",
+          width: "100%",
+          margin: "0 auto",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 24,
+          padding: "0 16px",
+          boxSizing: "border-box",
+          outline: "none",
+          overflow: "hidden",
+        }}
+        role="group"
+        aria-roledescription="carousel"
+      >
+        {list.map((slide, i) => (
+          <div
+            key={i}
+            style={{
+              position: "relative",
+              width: "100%",
+              maxHeight: 420,
+              aspectRatio: "16 / 10",
+              borderRadius: effectiveRadius,
+              overflow: "hidden",
+              transformStyle: "preserve-3d",
+              transformOrigin: "center center",
+              backgroundColor: "#1a1a1a",
+              cursor: "pointer",
+            }}
+            onClick={() => handleCardClick(i)}
+          >
+            <img
+              src={slide.image}
+              alt={slide.text}
+              draggable={false}
+              loading="lazy"
+              decoding="async"
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+                userSelect: "none",
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background: "#000000",
+                opacity: 0,
+                pointerEvents: "none",
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                bottom: 0,
+                padding: "28px 24px",
+                background:
+                  "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, transparent 100%)",
+                pointerEvents: "none",
+              }}
+            >
+              <h3
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  color: "#F9CC15",
+                  fontSize: "clamp(22px, 5.5vw, 32px)",
+                  fontWeight: 800,
+                  margin: 0,
+                  marginBottom: 8,
+                  lineHeight: 1.2,
+                }}
+              >
+                {slide.text}
+              </h3>
+              <p
+                style={{
+                  color: "#FFFFFF",
+                  fontSize: "clamp(13px, 3.8vw, 15px)",
+                  fontWeight: 500,
+                  lineHeight: 1.5,
+                  margin: 0,
+                  maxWidth: "100%",
+                }}
+              >
+                {slide.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div

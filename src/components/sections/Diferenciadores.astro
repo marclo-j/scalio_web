@@ -187,13 +187,30 @@ const cards = [
     letter-spacing: -0.01em;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     .diff-grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
+      gap: 12px;
     }
 
     .diff-card {
-      padding: 28px 20px;
+      padding: 24px 20px;
+      min-height: 220px;
+      aspect-ratio: 4 / 3;
+    }
+
+    .diff-card h3 {
+      font-size: 20px;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+    }
+
+    .card-content {
+      gap: 14px;
+      padding: 20px;
     }
   }
 </style>

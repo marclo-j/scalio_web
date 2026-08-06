@@ -74,11 +74,12 @@
 
     .testimonials-grid {
         display: grid;
-        grid-template-columns: repeat(4, 320px);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 16px;
         margin: 0 auto;
         padding: 0 24px;
         justify-content: center;
+        max-width: 1400px;
     }
 
     .testimonial-card {
@@ -89,8 +90,10 @@
         position: relative;
         display: flex;
         flex-direction: column;
-        width: 320px;
-        height: 320px;
+        width: 100%;
+        max-width: 340px;
+        min-height: 320px;
+        justify-self: center;
     }
 
     .testimonial-logo {
@@ -166,6 +169,9 @@
         .testimonials-grid {
             grid-template-columns: 1fr;
             gap: 16px;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 0 16px;
         }
     }
 </style>
