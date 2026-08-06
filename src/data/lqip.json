@@ -1,0 +1,26 @@
+{
+  "/videos/accesible-poster.webp": {
+    "lqipPath": "/videos/accesible-poster-lqip.webp",
+    "lqipDataUri": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAQCdASoKAAoAA4BaJYgCdAD0PEagcyAA/oQNprcDrVYHsoA3NxG306/Tbec449wD88cFPTRoKlIwJQ/UYi/pL54s3foi/bpDj0zXzO/cBETvekAAAA==",
+    "width": 10,
+    "height": 10
+  },
+  "/videos/resultados-poster.webp": {
+    "lqipPath": "/videos/resultados-poster-lqip.webp",
+    "lqipDataUri": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADwAQCdASoKAAoAA4BaJYgCdADcowo5ZsAA/phEB7wuSZ1s2hOb8zlWmoBm3bKQq4NcZz/MO3W4DqqGHg99+mG71t2vq/sAAAA=",
+    "width": 10,
+    "height": 10
+  },
+  "/videos/tecnologia-poster.webp": {
+    "lqipPath": "/videos/tecnologia-poster-lqip.webp",
+    "lqipDataUri": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAAAQAgCdASoKAAoAA4BaJZgC7AEPDi9qaDCAAP71sqAOnlbc21EnooXx9Yr8z9imlY2AlFna8R5aQAAA",
+    "width": 10,
+    "height": 10
+  },
+  "/videos/velocidad-poster.webp": {
+    "lqipPath": "/videos/velocidad-poster-lqip.webp",
+    "lqipDataUri": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAAAwAgCdASoKAAoAA4BaJbACdH8AGBs2gB3tAAD+9uAojua2pqWWFk/fdwlXXM+X6pHO4i+Bp7wqc3XILWLU64/fWPMkmf8jNAzl14zUKT0UAA==",
+    "width": 10,
+    "height": 10
+  }
+}

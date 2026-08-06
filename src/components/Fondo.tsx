@@ -603,8 +603,39 @@ export default function DottedBackground({
             rafIdRef.current = requestAnimationFrame(update);
         }
 
+        // Pause/resume the RAF loop when container leaves/enters the viewport.
+        // Avoids burning CPU/GPU cycles on the off-screen WebGL canvas.
+        let visibilityObserver: IntersectionObserver | null = null;
+        if (typeof IntersectionObserver !== "undefined") {
+            visibilityObserver = new IntersectionObserver(
+                (entries) => {
+                    const entry = entries[0];
+                    if (!entry) return;
+                    const wasPlaying = isPlayingRef.current;
+                    isPlayingRef.current = entry.isIntersecting && effectivePlay;
+                    if (isPlayingRef.current && !wasPlaying) {
+                        if (rafIdRef.current == null) {
+                            lastTimeRef.current = 0;
+                            rafIdRef.current = requestAnimationFrame(update);
+                        }
+                    } else if (!isPlayingRef.current && wasPlaying) {
+                        if (rafIdRef.current) {
+                            cancelAnimationFrame(rafIdRef.current);
+                            rafIdRef.current = null;
+                        }
+                    }
+                },
+                { rootMargin: "100px", threshold: 0 }
+            );
+            visibilityObserver.observe(container);
+        }
+
         return () => {
             if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+            if (visibilityObserver) {
+                visibilityObserver.disconnect();
+                visibilityObserver = null;
+            }
             if (resizeHandler)
                 window.removeEventListener("resize", resizeHandler);
             if (resizeObserver) {

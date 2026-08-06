@@ -1,5 +1,6 @@
 ﻿---
 import Fondo from "../Fondo.tsx";
+import lqip from "../../data/lqip.json";
 
 const cards = [
   { title: "Enfoque en resultados", icon: "/target-arrow.svg", video: "/videos/resultados.mp4", poster: "/videos/resultados-poster.webp" },
@@ -10,7 +11,7 @@ const cards = [
 ---
 
 <section id="resultados">
-  <Fondo client:load bgColor="rgba(249, 204, 21, 0.11)" />
+  <Fondo client:visible bgColor="rgba(249, 204, 21, 0.11)" />
 
   <div class="resultados-inner">
     <div class="section-header">
@@ -21,6 +22,10 @@ const cards = [
     <div class="diff-grid">
       {cards.map((c) => (
         <div class="diff-card">
+          <div
+            class="card-video-lqip"
+            style={`background-image:url(${(lqip as any)[c.poster]?.lqipDataUri || ""})`}
+          ></div>
           <video
             class="card-video js-lazy-video"
             poster={c.poster}
@@ -56,9 +61,13 @@ const cards = [
             if (src && !video.src) {
               video.src = src;
               video.load();
-              video.play().catch(function() {});
+              video.play().then(function() {
+                video.setAttribute("data-loaded", "true");
+              }).catch(function() {});
             } else if (video.src) {
-              video.play().catch(function() {});
+              video.play().then(function() {
+                video.setAttribute("data-loaded", "true");
+              }).catch(function() {});
             }
           } else {
             video.pause();
@@ -149,8 +158,27 @@ const cards = [
     width: 100%;
     height: 100%;
     object-fit: cover;
+    z-index: 1;
+    background: transparent;
+  }
+
+  .card-video-lqip {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     z-index: 0;
-    background: #000;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(20px) saturate(1.2);
+    transform: scale(1.1);
+    transition: opacity 0.3s ease-out;
+  }
+
+  .card-video:not([style*="display: none"]) ~ .card-video-lqip,
+  .js-lazy-video[data-loaded="true"] ~ .card-video-lqip {
+    opacity: 0;
   }
 
   .card-overlay {
