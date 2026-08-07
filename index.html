@@ -338,6 +338,14 @@
   .copy-btn.copied { color: var(--accent); }
 
   .code-body { padding: 15px 0 17px; overflow-x: auto; }
+  .prompt-body {
+    padding: 15px 16px 17px;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: 1.7;
+    color: var(--fg-2);
+    white-space: pre-wrap;
+  }
   .code-line {
     display: flex;
     gap: 16px;
@@ -419,11 +427,11 @@
 
   <footer class="footer-bar" data-od-id="footer-bar-p1">
     <span>Conectar n8n a OpenCode vía MCP</span>
-    <span>Guía técnica · Página 1 de 2</span>
+    <span>Guía técnica · Página 1 de 3</span>
   </footer>
 </section>
 
-<!-- ============ PÁGINA 2 — Pasos + Código + Notas ============ -->
+<!-- ============ PÁGINA 2 — Paso a paso ============ -->
 <section class="sheet" data-od-id="page-pasos">
 
   <section data-od-id="section-pasos">
@@ -456,6 +464,15 @@
     </ol>
   </section>
 
+  <footer class="footer-bar" data-od-id="footer-bar-p2">
+    <span>Conectar n8n a OpenCode vía MCP</span>
+    <span>Guía técnica · Página 2 de 3</span>
+  </footer>
+</section>
+
+<!-- ============ PÁGINA 3 — Código + Prompts + Notas ============ -->
+<section class="sheet" data-od-id="page-configuracion">
+
   <section data-od-id="section-configuracion">
     <h2><span class="sec-num">03</span>Bloque de configuración</h2>
     <p class="lead">Copia el bloque y pégalo dentro de la sección <code>mcp</code> del archivo de configuración de OpenCode.</p>
@@ -482,8 +499,37 @@
     </figure>
   </section>
 
+  <section data-od-id="section-prompts">
+    <h2><span class="sec-num">04</span>Prompts para crear workflows con OpenCode</h2>
+    <p class="lead">Tres ejemplos listos para copiar y ejecutar en OpenCode una vez conectado el servidor MCP de n8n.</p>
+
+    <figure class="code" data-od-id="prompt-1-box">
+      <figcaption class="code-head">
+        <span class="code-title">Prompt 01 &nbsp;·&nbsp; Workflow por webhook</span>
+        <button type="button" class="copy-btn no-print" data-copy="prompt-1">Copiar</button>
+      </figcaption>
+      <div class="prompt-body" id="prompt-1">Crea un workflow en n8n que se active con un webhook, haga una petición HTTP GET a https://api.ejemplo.com/datos y envíe el resultado por correo electrónico.</div>
+    </figure>
+
+    <figure class="code" data-od-id="prompt-2-box">
+      <figcaption class="code-head">
+        <span class="code-title">Prompt 02 &nbsp;·&nbsp; Programado con filtros</span>
+        <button type="button" class="copy-btn no-print" data-copy="prompt-2">Copiar</button>
+      </figcaption>
+      <div class="prompt-body" id="prompt-2">Crea un workflow en n8n que se ejecute todos los días a las 8:00, lea una tabla de Google Sheets, filtre las filas con estado "pendiente" y genere un resumen en un documento de texto.</div>
+    </figure>
+
+    <figure class="code" data-od-id="prompt-3-box">
+      <figcaption class="code-head">
+        <span class="code-title">Prompt 03 &nbsp;·&nbsp; Agente de IA</span>
+        <button type="button" class="copy-btn no-print" data-copy="prompt-3">Copiar</button>
+      </figcaption>
+      <div class="prompt-body" id="prompt-3">Crea un workflow en n8n con un agente de IA que clasifique los correos entrantes como "venta", "soporte" u "otro" y envíe cada uno al canal de Slack correspondiente.</div>
+    </figure>
+  </section>
+
   <section class="panel" data-od-id="section-notas">
-    <h2><span class="sec-num">04</span>Notas importantes</h2>
+    <h2><span class="sec-num">05</span>Notas importantes</h2>
     <ul class="notes-list">
       <li data-od-id="nota-url"><strong>URL de la instancia.</strong> Reemplaza <code>url-server-instance-level-mcp</code> por la URL real del servidor MCP de tu instancia de n8n; el texto es un marcador de ejemplo.</li>
       <li data-od-id="nota-token"><strong>Autenticación.</strong> Reemplaza <code>Bearer token</code> por tu token real, conservando el prefijo <code>Bearer&nbsp;</code>. Evita versionar el archivo con el token en claro.</li>
@@ -492,9 +538,9 @@
     </ul>
   </section>
 
-  <footer class="footer-bar" data-od-id="footer-bar-p2">
+  <footer class="footer-bar" data-od-id="footer-bar-p3">
     <span>Conectar n8n a OpenCode vía MCP</span>
-    <span>Guía técnica · Página 2 de 2</span>
+    <span>Guía técnica · Página 3 de 3</span>
   </footer>
 </section>
 
@@ -513,35 +559,44 @@
       "  }\n" +
       "}";
 
-    var btn = document.getElementById('copy-btn');
-    if (btn) {
-      btn.addEventListener('click', function () {
-        function done() {
-          btn.textContent = '¡Copiado!';
-          btn.classList.add('copied');
-          setTimeout(function () {
-            btn.textContent = 'Copiar';
-            btn.classList.remove('copied');
-          }, 1600);
-        }
+    function flash(b) {
+      b.textContent = '¡Copiado!';
+      b.classList.add('copied');
+      setTimeout(function () {
+        b.textContent = 'Copiar';
+        b.classList.remove('copied');
+      }, 1600);
+    }
+
+    function bindCopy(b, text) {
+      b.addEventListener('click', function () {
         function legacy() {
           var ta = document.createElement('textarea');
-          ta.value = raw;
+          ta.value = text;
           ta.style.position = 'fixed';
           ta.style.opacity = '0';
           document.body.appendChild(ta);
           ta.select();
           try { document.execCommand('copy'); } catch (e) {}
           document.body.removeChild(ta);
-          done();
+          flash(b);
         }
         if (navigator.clipboard && window.isSecureContext) {
-          navigator.clipboard.writeText(raw).then(done, legacy);
+          navigator.clipboard.writeText(text).then(function () { flash(b); }, legacy);
         } else {
           legacy();
         }
       });
     }
+
+    var btn = document.getElementById('copy-btn');
+    if (btn) bindCopy(btn, raw);
+
+    var copyBtns = document.querySelectorAll('[data-copy]');
+    Array.prototype.forEach.call(copyBtns, function (b) {
+      var target = document.getElementById(b.getAttribute('data-copy'));
+      if (target) bindCopy(b, target.innerText);
+    });
   })();
 </script>
 </body>
