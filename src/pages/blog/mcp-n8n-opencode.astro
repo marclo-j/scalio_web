@@ -1,0 +1,500 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+  title="Conectar n8n a OpenCode vía MCP — Guía técnica"
+  description="Guía paso a paso de configuración para conectar tu instancia de n8n como servidor MCP remoto dentro de OpenCode."
+  canonical="/blog/mcp-n8n-opencode"
+>
+  <div class="guide">
+    <!-- ============ PÁGINA 1 — Portada + Requisitos previos ============ -->
+    <section class="sheet">
+      <header class="cover">
+        <svg class="hero-icon" width="50" height="50" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <circle cx="14" cy="24" r="6" stroke="currentColor" stroke-width="2.4"/>
+          <circle cx="34" cy="24" r="6" stroke="currentColor" stroke-width="2.4"/>
+          <circle cx="34" cy="15" r="3" fill="currentColor"/>
+          <path d="M20 24h8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+        <p class="kicker">Guía técnica · Configuración MCP</p>
+        <h1>Conectar n8n a OpenCode vía MCP</h1>
+        <p class="sub">Guía paso a paso de configuración para conectar tu instancia de n8n como servidor MCP remoto dentro de OpenCode.</p>
+      </header>
+
+      <section>
+        <h2><span class="sec-num">01</span>Requisitos previos</h2>
+        <p class="lead">Antes de empezar, asegúrate de tener disponible lo siguiente.</p>
+        <ul class="req-list">
+          <li><strong>Instancia de n8n activa</strong> — accesible desde el equipo donde se ejecuta OpenCode.</li>
+          <li><strong>URL del servidor MCP</strong> — la URL del servidor MCP a nivel de instancia: <code>url-server-instance-level-mcp</code>.</li>
+          <li><strong>OpenCode instalado</strong> — la herramienta desde la que cargarás el servidor remoto.</li>
+          <li><strong>Token de autenticación</strong> — un token válido para el esquema <code>Authorization: Bearer</code>.</li>
+        </ul>
+      </section>
+
+      <footer class="footer-bar">
+        <span>Conectar n8n a OpenCode vía MCP</span>
+        <span>Guía técnica · Página 1 de 2</span>
+      </footer>
+    </section>
+
+    <!-- ============ PÁGINA 2 — Pasos + Código + Notas ============ -->
+    <section class="sheet">
+      <section>
+        <h2><span class="sec-num">02</span>Paso a paso</h2>
+        <ol class="step-list">
+          <li>
+            <span class="step-num">1</span>
+            <div class="step-body"><p><strong>Obtén la URL del servidor MCP de tu instancia.</strong> En n8n, localiza la URL que expone el servidor MCP a nivel de instancia: será el valor que sustituya a <code>url-server-instance-level-mcp</code>.</p><img class="step-img" src="/blog/1.png" alt="Ubicación de la URL del servidor MCP de la instancia" loading="lazy" decoding="async" width="640" /></div>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <div class="step-body"><p><strong>Prepara tu token.</strong> Genera o copia el token de autenticación de la instancia: será el valor que sustituya a <code>Bearer token</code>.</p><img class="step-img" src="/blog/2.png" alt="Ubicación del token de autenticación de la instancia" loading="lazy" decoding="async" width="640" /></div>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <div class="step-body"><p><strong>Abre la configuración de OpenCode.</strong> Localiza y abre el archivo de configuración de tu instalación.</p></div>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <div class="step-body"><p><strong>Agrega el bloque <code>n8n</code>.</strong> Pega el JSON de la sección 03 dentro de la configuración de servidores MCP remotos.</p></div>
+          </li>
+          <li>
+            <span class="step-num">5</span>
+            <div class="step-body"><p><strong>Guarda y reinicia OpenCode.</strong> La nueva configuración se aplica al reiniciar la herramienta.</p></div>
+          </li>
+          <li>
+            <span class="step-num">6</span>
+            <div class="step-body"><p><strong>Verifica la conexión.</strong> La entrada <code>n8n</code> debe figurar como servidor MCP remoto activo.</p></div>
+          </li>
+        </ol>
+      </section>
+
+      <section>
+        <h2><span class="sec-num">03</span>Bloque de configuración</h2>
+        <p class="lead">Copia el bloque y pégalo dentro de la sección <code>mcp</code> del archivo de configuración de OpenCode.</p>
+
+        <figure class="code">
+          <figcaption class="code-head">
+            <span class="code-title">mcp &nbsp;·&nbsp; n8n &nbsp;·&nbsp; servidor remoto</span>
+            <button type="button" class="copy-btn no-print" id="copy-btn">Copiar</button>
+          </figcaption>
+          <div class="code-body">
+            <div class="code-line"><span class="ln">1</span><span class="tk">{</span></div>
+            <div class="code-line"><span class="ln">2</span><span class="tk">  <span class="k">"n8n"</span>: {</span></div>
+            <div class="code-line"><span class="ln">3</span><span class="tk">    <span class="k">"type"</span>: "remote",</span></div>
+            <div class="code-line"><span class="ln">4</span><span class="tk">    <span class="k">"url"</span>: <span class="ph">"url-server-instance-level-mcp"</span>,</span></div>
+            <div class="code-line"><span class="ln">5</span><span class="tk">    <span class="k">"enabled"</span>: true,</span></div>
+            <div class="code-line"><span class="ln">6</span><span class="tk">    <span class="k">"headers"</span>: {</span></div>
+            <div class="code-line"><span class="ln">7</span><span class="tk">      <span class="k">"Authorization"</span>: <span class="ph">"Bearer token"</span></span></div>
+            <div class="code-line"><span class="ln">8</span><span class="tk">    },</span></div>
+            <div class="code-line"><span class="ln">9</span><span class="tk">    <span class="k">"oauth"</span>: false,</span></div>
+            <div class="code-line"><span class="ln">10</span><span class="tk">    <span class="k">"timeout"</span>: 30000</span></div>
+            <div class="code-line"><span class="ln">11</span><span class="tk">  }</span></div>
+            <div class="code-line"><span class="ln">12</span><span class="tk">}</span></div>
+          </div>
+        </figure>
+      </section>
+
+      <section class="panel">
+        <h2><span class="sec-num">04</span>Notas importantes</h2>
+        <ul class="notes-list">
+          <li><strong>URL de la instancia.</strong> Reemplaza <code>url-server-instance-level-mcp</code> por la URL real del servidor MCP de tu instancia de n8n; el texto es un marcador de ejemplo.</li>
+          <li><strong>Autenticación.</strong> Reemplaza <code>Bearer token</code> por tu token real, conservando el prefijo <code>Bearer&nbsp;</code>. Evita versionar el archivo con el token en claro.</li>
+          <li><strong>Timeout.</strong> El valor de <code>timeout</code> está expresado en milisegundos: <code>30000</code> equivale a 30 segundos.</li>
+          <li><strong>JSON válido.</strong> El bloque se muestra normalizado (sin comas finales) para ser JSON estricto válido; OpenCode lo interpreta sin tolerar comas finales.</li>
+        </ul>
+      </section>
+
+      <footer class="footer-bar">
+        <span>Conectar n8n a OpenCode vía MCP</span>
+        <span>Guía técnica · Página 2 de 2</span>
+      </footer>
+    </section>
+  </div>
+
+  <script>
+    const raw = "{\n" +
+      "  \"n8n\": {\n" +
+      "    \"type\": \"remote\",\n" +
+      "    \"url\": \"url-server-instance-level-mcp\",\n" +
+      "    \"enabled\": true,\n" +
+      "    \"headers\": {\n" +
+      "      \"Authorization\": \"Bearer token\"\n" +
+      "    },\n" +
+      "    \"oauth\": false,\n" +
+      "    \"timeout\": 30000\n" +
+      "  }\n" +
+      "}";
+
+    const btn = document.getElementById("copy-btn");
+    if (btn) {
+      btn.addEventListener("click", () => {
+        const done = () => {
+          btn.textContent = "¡Copiado!";
+          btn.classList.add("copied");
+          setTimeout(() => {
+            btn.textContent = "Copiar";
+            btn.classList.remove("copied");
+          }, 1600);
+        };
+        const legacy = () => {
+          const ta = document.createElement("textarea");
+          ta.value = raw;
+          ta.style.position = "fixed";
+          ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand("copy"); } catch (e) {}
+          document.body.removeChild(ta);
+          done();
+        };
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(raw).then(done, legacy);
+        } else {
+          legacy();
+        }
+      });
+    }
+
+  </script>
+</Layout>
+
+<style>
+  /* Tokens — design system Scalio (Layout.astro) adaptados a la guía */
+  .guide {
+    --surface: #000000;
+    --surface-warm: #1F2937;
+    --fg: #F9FAFB;
+    --fg-2: #D1D5DB;
+    --muted: #9CA3AF;
+    --meta: #F9CC15;
+    --border: #374151;
+    --border-soft: rgba(255, 255, 255, 0.08);
+    --accent: #F9CC15;
+    --accent-hover: color-mix(in oklab, var(--accent), black 8%);
+    --accent-active: color-mix(in oklab, var(--accent), black 14%);
+    --success: #22c55e;
+    --warn: #fbbf24;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --text-xs: 12px;
+    --text-sm: 13px;
+    --text-base: 15px;
+    --text-lg: 17px;
+    --leading-body: 1.55;
+    --leading-tight: 1.06;
+    --tracking-display: -0.02em;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --elev-ring: 0 0 0 1px var(--border);
+    --elev-raised: 0 24px 72px rgba(0, 0, 0, 0.55), 0 0 44px rgba(249, 204, 21, 0.07);
+    --focus-ring: 0 0 0 4px rgba(249, 204, 21, 0.30);
+    --motion-fast: 130ms;
+    --motion-base: 220ms;
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+    padding: 40px 16px 64px;
+  }
+
+  /* ============================================================
+     Hoja A4 — superficie de comando oscura
+     ============================================================ */
+  .sheet {
+    width: 210mm;
+    min-height: 297mm;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin: 0 auto 44px;
+    padding: 16mm 19mm 32mm;
+    box-shadow: var(--elev-raised);
+    position: relative;
+    overflow: hidden;
+    break-inside: avoid;
+  }
+  .sheet:last-child { margin-bottom: 0; }
+
+  @page { size: A4; margin: 0; }
+  @media print {
+    .guide { padding: 0; }
+    .sheet {
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      width: 210mm;
+      height: 297mm;
+      min-height: 297mm;
+      page-break-after: always;
+      break-after: page;
+    }
+    .sheet:last-child { page-break-after: auto; break-after: auto; }
+    .no-print { display: none !important; }
+  }
+
+  /* ============================================================
+     Portada
+     ============================================================ */
+  .cover {
+    padding-bottom: 28px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-icon {
+    color: var(--accent);
+    display: block;
+    margin-bottom: 28px;
+  }
+
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--meta);
+    margin: 0 0 16px;
+  }
+
+  h1 {
+    font-size: 40px;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-display);
+    font-weight: 600;
+    color: var(--fg);
+    margin: 0 0 20px;
+    max-width: 17ch;
+  }
+
+  .sub {
+    font-size: 15.5px;
+    color: var(--muted);
+    line-height: 1.62;
+    max-width: 58ch;
+    margin: 0;
+  }
+
+  /* ============================================================
+     Secciones y jerarquía
+     ============================================================ */
+  .sheet section { margin-bottom: 38px; }
+
+  h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--fg);
+    margin: 0 0 8px;
+  }
+  .sec-num {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+  }
+
+  .lead {
+    color: var(--muted);
+    max-width: 62ch;
+    margin: 0 0 18px;
+  }
+
+  /* ============================================================
+     Listas y pasos
+     ============================================================ */
+  ul, ol { list-style: none; margin: 0; padding: 0; }
+
+  .req-list li, .notes-list li {
+    position: relative;
+    padding: 0 0 0 24px;
+    margin-bottom: 13px;
+    max-width: 62ch;
+  }
+  .req-list li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--muted);
+  }
+  .notes-list li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 9px;
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--accent);
+  }
+  .req-list strong, .notes-list strong { font-weight: 600; color: var(--fg); }
+
+  .panel {
+    background: var(--surface-warm);
+    border: 1px solid rgba(249, 204, 21, 0.30);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+  }
+  .panel .notes-list li { margin-bottom: 10px; }
+  .panel .notes-list li:last-child { margin-bottom: 0; }
+
+  .step-list li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    max-width: 66ch;
+    break-inside: avoid;
+  }
+  .step-num {
+    flex: none;
+    width: 27px;
+    height: 27px;
+    border: 1px solid rgba(249, 204, 21, 0.55);
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--accent);
+    display: grid;
+    place-items: center;
+    margin-top: 1px;
+    transition: border-color var(--motion-base) var(--ease-standard), color var(--motion-base) var(--ease-standard);
+  }
+  .step-body p { margin: 0; color: var(--fg); }
+  .step-body strong { font-weight: 600; }
+  .step-img {
+    display: block;
+    width: 100%;
+    max-width: 460px;
+    margin-top: 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface-warm);
+  }
+  .step-list li:last-child .step-num {
+    border-color: var(--success);
+    color: var(--success);
+  }
+
+  /* ============================================================
+     Código inline y bloque de código
+     ============================================================ */
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--surface-warm);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1px 5px;
+    color: var(--fg-2);
+    white-space: nowrap;
+  }
+
+  .code {
+    background: #0a0a0a;
+    border: 1px solid rgba(249, 204, 21, 0.30);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin: 0;
+    break-inside: avoid;
+  }
+  .code-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .code-title {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .code-title code {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    font-size: inherit;
+    color: var(--accent);
+    white-space: normal;
+  }
+  .copy-btn {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--fg-2);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: border-color var(--motion-fast) var(--ease-standard), color var(--motion-fast) var(--ease-standard), background var(--motion-fast) var(--ease-standard);
+  }
+  .copy-btn:hover {
+    border-color: var(--accent);
+    color: var(--fg);
+    background: var(--accent-hover);
+  }
+  .copy-btn:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+  .copy-btn.copied { color: var(--accent); }
+
+  .code-body { padding: 15px 0 17px; overflow-x: auto; }
+  .code-line {
+    display: flex;
+    gap: 16px;
+    padding: 0 16px;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: 1.7;
+    white-space: pre;
+  }
+  .ln {
+    flex: none;
+    width: 16px;
+    text-align: right;
+    color: var(--muted);
+    user-select: none;
+  }
+  .tk { color: var(--fg-2); }
+  .tk .k { color: var(--accent); }
+  .tk .ph {
+    color: var(--warn);
+    background: rgba(251, 191, 36, 0.12);
+    border-bottom: 1px dotted rgba(251, 191, 36, 0.5);
+    border-radius: 3px;
+    padding: 0 1px;
+  }
+
+  /* ============================================================
+     Pie de página
+     ============================================================ */
+  .footer-bar {
+    position: absolute;
+    left: 19mm;
+    right: 19mm;
+    bottom: 13mm;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    border-top: 1px solid var(--border);
+    padding-top: 9px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+
+  @media (max-width: 900px) {
+    .guide { padding: 24px 10px 48px; }
+    .sheet { width: auto; min-width: 0; box-shadow: var(--elev-ring); }
+  }
+</style>
